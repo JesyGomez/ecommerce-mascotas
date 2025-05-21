@@ -1,0 +1,652 @@
+/* Navbar */
+
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #ffe8d6;
+  padding: 1rem 2rem;
+  font-family: 'Segoe UI', sans-serif;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.navbar-logo a {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #8b4513;
+  text-decoration: none;
+}
+
+.navbar-links {
+  list-style: none;
+  display: flex;
+  gap: 1rem;
+}
+
+.navbar-links li a,
+.navbar-icons a,
+.dropdown span {
+  text-decoration: none;
+  color: #5d4037;
+  font-weight: 500;
+  transition: color 0.3s;
+}
+
+.navbar-links li a:hover,
+.navbar-icons a:hover,
+.dropdown:hover span {
+  color: #d2691e;
+}
+
+.navbar-icons a {
+  margin-left: 1rem;
+  font-size: 1.2rem;
+}
+
+.dropdown {
+  position: relative;
+  cursor: pointer;
+}
+
+.dropdown-menu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background-color: #fff8f0;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  padding: 0.5rem;
+  display: none;
+  flex-direction: column;
+  z-index: 10;
+}
+
+.dropdown:hover .dropdown-menu {
+  display: flex;
+}
+
+.dropdown-menu li {
+  margin: 0.2rem 0;
+}
+/* Gallery */
+.gallery-container {
+  overflow: hidden;
+  width: 100%;
+  background-color: #fff;
+  padding: 1rem 0;
+}
+
+.gallery-track {
+  display: flex;
+  gap: 2rem;
+  animation: scroll 20s linear infinite;
+}
+
+.gallery-image {
+  height: 200px;
+  flex-shrink: 0;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  transition: transform 0.3s ease;
+}
+
+.gallery-image:hover {
+  transform: scale(1.05);
+}
+
+/* Animación para hacer que las imágenes de la galeria */
+@keyframes scroll {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+
+/* Home */
+
+.home-container {
+    font-family: 'Segoe UI', sans-serif;
+    color: #333;
+    background-color: #fffaf5;
+  }
+  
+  .hero {
+    background: linear-gradient(90deg, #ffecd2, #fcb69f);
+    text-align: center;
+    padding: 60px 20px;
+  }
+  
+  .hero h1 {
+    font-size: 3rem;
+    margin-bottom: 10px;
+  }
+  
+  .hero p {
+    font-size: 1.3rem;
+    margin-bottom: 30px;
+  }
+  
+  .btn-hero {
+    padding: 12px 24px;
+    background-color: #ff6f61;
+    color: white;
+    text-decoration: none;
+    border-radius: 8px;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+  }
+  
+  .btn-hero:hover {
+    background-color: #e85c4f;
+  }
+  
+  .destacados {
+    padding: 40px 20px;
+    text-align: center;
+  }
+  
+  .features {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 30px;
+    margin-top: 30px;
+  }
+  
+  .feature {
+    background-color: #fff;
+    border-radius: 16px;
+    padding: 20px;
+    width: 250px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  }
+  
+  .feature img {
+    width: 80px;
+    height: 80px;
+    margin-bottom: 15px;
+  }
+
+
+/* Tienda */
+.tienda-container {
+  padding: 2rem;
+  text-align: center;
+}
+
+.categorias-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+  margin-top: 2rem;
+}
+
+.categoria-card {
+  background: #fff;
+  border: 1px solid #ddd;
+  padding: 1rem;
+  border-radius: 10px;
+  box-shadow: 0px 2px 5px rgba(0,0,0,0.1);
+}
+
+.categoria-card img {
+  width: 100px;
+  height: 100px;
+  object-fit: contain;
+}
+
+.btn {
+  margin-top: 1rem;
+  padding: 0.5rem 1rem;
+  background: #ff6f61;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.contenido-categoria {
+  margin-top: 2rem;
+  padding: 1rem;
+  background: #f7f7f7;
+  border-radius: 10px;
+}
+
+/* Login */
+.login-container {
+  background-image: url('https://st5.depositphotos.com/16122460/61918/i/450/depositphotos_619184850-stock-photo-frame-made-pet-toys-feeding.jpg');
+  background-size: cover;
+  background-position: center;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.login-box {
+  background-color: rgba(255, 255, 255, 0.9);
+  padding: 40px;
+  border-radius: 16px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+  max-width: 400px;
+  width: 100%;
+  text-align: center;
+}
+
+.login-box h2 {
+  margin-bottom: 20px;
+  color: #444;
+}
+
+.login-box form {
+  display: flex;
+  flex-direction: column;
+}
+
+.login-box label {
+  text-align: left;
+  margin-bottom: 5px;
+  color: #333;
+  font-weight: bold;
+}
+
+.login-box input {
+  padding: 10px;
+  margin-bottom: 20px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 16px;
+}
+
+.login-box button {
+  background-color: #ff914d;
+  color: white;
+  padding: 12px;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.login-box button:hover {
+  background-color: #ff7722;
+}
+
+.login-footer {
+  margin-top: 15px;
+  font-size: 14px;
+  color: #666;
+}
+
+.login-footer a {
+  color: #ff914d;
+  text-decoration: none;
+}
+
+.login-footer a:hover {
+  text-decoration: underline;
+}
+
+/* Contacto */
+  .contacto-container {
+  background-image: url('https://img.freepik.com/foto-gratis/conjunto-concepto-naturaleza-muerta-accesorios-mascotas_23-2148949592.jpg?semt=ais_hybrid&w=740');
+  background-size: cover;
+  background-position: center;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.contacto-box {
+  background-color: rgba(255, 255, 255, 0.95);
+  padding: 40px;
+  border-radius: 16px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+  max-width: 500px;
+  width: 100%;
+  text-align: center;
+}
+
+.contacto-box h2 {
+  color: #444;
+  margin-bottom: 10px;
+}
+
+.contacto-box p {
+  color: #666;
+  margin-bottom: 25px;
+}
+
+.contacto-box form {
+  display: flex;
+  flex-direction: column;
+}
+
+.contacto-box label {
+  text-align: left;
+  margin-bottom: 5px;
+  color: #333;
+  font-weight: bold;
+}
+
+.contacto-box input,
+.contacto-box textarea {
+  padding: 10px;
+  margin-bottom: 20px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 16px;
+  resize: none;
+}
+
+.contacto-box button {
+  background-color: #ff914d;
+  color: white;
+  padding: 12px;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.contacto-box button:hover {
+  background-color: #ff7722;
+}
+
+/* Nosotros */
+.nosotros-container {
+  background-color: #fff8f0;
+  padding: 4rem 1rem;
+  display: flex;
+  justify-content: center;
+}
+
+.nosotros-box {
+  max-width: 800px;
+  background-color: #ffffff;
+  padding: 2.5rem;
+  border-radius: 16px;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.1);
+  text-align: center;
+}
+
+.nosotros-box h2 {
+  color: #ff6b6b;
+  margin-bottom: 1rem;
+  font-size: 2.2rem;
+}
+
+.nosotros-box p {
+  color: #555;
+  line-height: 1.6;
+  margin-bottom: 1.5rem;
+}
+
+.equipo {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 2rem;
+  margin-top: 2rem;
+}
+
+.miembro {
+  width: 150px;
+  text-align: center;
+  background: linear-gradient(145deg, #ffe2dc, #fffaf0);
+  border-radius: 16px;
+  padding: 1rem;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: 0 4px 10px rgba(255, 107, 107, 0.2);
+}
+
+.miembro:hover {
+  transform: scale(1.05) rotate(-1deg);
+  box-shadow: 0 8px 20px rgba(255, 107, 107, 0.4);
+  background: linear-gradient(145deg, #ffb6b6, #ffe2dc);
+}
+
+.miembro img {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-bottom: 0.8rem;
+}
+
+.miembro h4 {
+  margin: 0.5rem 0 0.2rem;
+  color: #333;
+}
+
+.miembro p {
+  margin: 0;
+  color: #777;
+  font-size: 0.9rem;
+}
+
+/* Productos */
+.productos-container {
+  padding: 4rem 2rem;
+  background: #fff7f4;
+  text-align: center;
+}
+
+.productos-container h2 {
+  font-size: 2rem;
+  color: #444;
+  margin-bottom: 2rem;
+}
+
+.productos-grid,
+.product-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 2rem;
+  justify-items: center;
+  padding: 1rem;
+}
+
+.producto-card {
+  background: #fff;
+  border-radius: 20px;
+  box-shadow: 0 6px 12px rgba(255, 155, 155, 0.2);
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  max-width: 280px;
+  width: 100%;
+  padding: 1rem;
+  text-align: center;
+  animation: fadeIn 0.6s ease;
+}
+
+.producto-card:hover {
+  transform: translateY(-8px) scale(1.03);
+  box-shadow: 0 10px 20px rgba(255, 120, 120, 0.3);
+}
+
+.producto-card img {
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+}
+
+.producto-card h3 {
+  color: #444;
+  font-size: 1.2rem;
+  margin: 0.5rem 0;
+}
+
+.producto-card p {
+  margin: 0.3rem 0;
+}
+
+.precio {
+  color: #ff6666;
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+}
+
+.stock {
+  font-size: 0.9rem;
+  color: #888;
+  margin-bottom: 1rem;
+}
+
+/* Cantidad y botones */
+.cantidadContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.8rem;
+  margin-bottom: 1rem;
+}
+
+.btn-cantidad {
+  background-color: #ffe5e5;
+  border: none;
+  padding: 0.3rem;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  border-radius: 6px;
+  width: 32px;
+  height: 32px;
+  color: #444;
+  transition: background 0.3s ease;
+}
+
+.btn-cantidad:hover {
+  background-color: #ffcccc;
+}
+
+.cantidad {
+  font-weight: bold;
+  font-size: 1rem;
+  min-width: 20px;
+  text-align: center;
+}
+
+/* Botón principal */
+.producto-card .btn {
+  background: #ff9999;
+  border: none;
+  padding: 0.6rem 1.2rem;
+  border-radius: 10px;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.producto-card .btn:hover {
+  background: #ff7777;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Footer */
+.footer {
+  background-color: #f8f8f8;
+  padding: 20px 0;
+  text-align: center;
+  font-size: 14px;
+  color: #555;
+  border-top: 1px solid #ddd;
+}
+
+.footer-container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+
+/* Not Found */
+.notfound-container {
+  background-image: url("https://st3.depositphotos.com/1177973/13992/i/450/depositphotos_139926842-stock-photo-group-of-cute-pets.jpg"); 
+  background-size: cover;
+  background-position: center;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  color: #fff;
+  padding: 2rem;
+}
+
+.notfound-content {
+  background-color: rgba(0, 0, 0, 0.6);
+  padding: 3rem;
+  border-radius: 20px;
+  max-width: 600px;
+  width: 100%;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.7);
+}
+
+.notfound-content h1 {
+  font-size: 6rem;
+  margin-bottom: 0.5rem;
+  color: #ffcc00;
+}
+
+.notfound-content h2 {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+}
+
+.notfound-content p {
+  font-size: 1.2rem;
+  margin-bottom: 2rem;
+}
+
+.notfound-content button {
+  padding: 0.8rem 1.5rem;
+  background-color: #ffcc00;
+  border: none;
+  border-radius: 10px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.notfound-content button:hover {
+  background-color: #ffaa00;
+}
+
+/* Loading */
+.loader-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  background-color: #fffaf0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  overflow: hidden;
+}
+
+.gif-animalitos {
+  width: 300px;
+  height: auto;
+}
+
+.loader-text {
+  margin-top: 20px;
+  font-size: 1.2rem;
+  color: #444;
+}

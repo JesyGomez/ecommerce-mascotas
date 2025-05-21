@@ -1,0 +1,119 @@
+[
+  {
+    "id": 1,
+    "nombre": "Pelota mordedora",
+    "precio": "1.200",
+    "stock": 30,
+    "imagen": "https://www.winpet.cl/wp-content/uploads/2021/11/PELOTA-MORDEDORA-DE-GOMA-SOLIDA-celeste-1.jpg"
+  },
+  {
+    "id": 2,
+    "nombre": "Alimento Premium",
+    "precio": "48.800",
+    "stock": 25,
+    "imagen": "https://www.nestle.com.py/sites/g/files/pydnoa266/files/styles/webp_image/public/portada-proplan-perros.jpg.webp?itok=Gs7AGJSf"
+  },
+  {
+    "id": 3,
+    "nombre": "Transportadora",
+    "precio": "75.500",
+    "stock": 15,
+    "imagen": "https://d28hi93gr697ol.cloudfront.net/071e89ac-46a5-8ab3/img/Producto/7d1a49a8-bcb1-5168-b6da-4c6b08dea17a/359cbbda-e3cb-4efc-bf5f-b841a3f61a44-67ffcfffa2ef3.jpg"
+  },
+  {
+    "id": 4,
+    "nombre": "Cama suave XL",
+    "precio": "53.200",
+    "stock": 35,
+    "imagen": "https://guamba.com/cdn/shop/files/GuambaCamasMascotas.jpg?crop=center&height=1080&v=1746725569&width=1080"
+  },
+  {
+    "id": 5,
+    "nombre": "Rascador para gatos",
+    "precio": "22.900",
+    "stock": 12,
+    "imagen": "https://storage.googleapis.com/catalog-pictures-carrefour-es/catalog/pictures/hd_510x_/4099917174542_1.jpg"
+  },
+  
+  {
+    "id": 6,
+    "nombre": "Pelota Mordedora",
+    "descripcion": "Pelota resistente ideal para perros juguetones.",
+    "precio": 1800,
+    "stock": 40,
+    "imagen": "https://logopedicum.com/wp-content/uploads/2022/05/mordedor-pelota-silciona.jpg"
+  },
+  {
+    "id": 7,
+    "nombre": "Comedero Antivoracidad",
+    "descripcion": "Diseñado para que tu perro coma más despacio.",
+    "precio": 2400,
+    "stock": 9,
+    "imagen": "https://www.hola.com/horizon/original_aspect_ratio/c2e6d4344378-ddoxx-comedero-antivoracidad-perro-antideslizante-a.jpg"
+  },
+  {
+    "id": 8,
+    "nombre": "Rascador Gato Deluxe",
+    "descripcion": "Ideal para que tu gato se divierta y cuide sus uñas.",
+    "precio": 35600,
+    "stock": 21,
+    "imagen": "https://img.kwcdn.com/product/fancy/cf7f8fb8-720a-40c5-bb5b-4eec03c5cc87.jpg?imageView2/2/w/500/q/60/format/webp"
+  },
+  {
+    "id": 9,
+    "nombre": "Alimento Balanceado ProCan 7kg",
+    "descripcion": "Nutrición completa para perros adultos.",
+    "precio": 8900,
+    "stock": 45,
+    "imagen": "https://puppypupec.com/wp-content/uploads/2024/07/procan_adultos_rmg-min_optimized.png"
+  },
+  {
+    "id": 10,
+    "nombre": "Cama Redonda Felpa XL",
+    "descripcion": "Cama suave y cálida para perros o gatos grandes.",
+    "precio": 6900,
+    "stock": 17,
+    "imagen": "https://m.media-amazon.com/images/I/71XWJvHX9JL._AC_UF1000,1000_QL80_.jpg"
+  },
+  {
+    "id": 11,
+    "nombre": "Collar Reflectante",
+    "descripcion": "Collar ajustable con banda reflectante para paseos nocturnos.",
+    "precio": 1300,
+    "stock": 50,
+    "imagen": "https://www.superzoo.cl/on/demandware.static/-/Sites-SuperZoo-master-catalog/default/dweef0ceb4/images/Collar%20Reflectante%20Front%20Range%20-%20Azul.jpg"
+  },
+  {
+    "id": 12,
+    "nombre": "Champú Neutro 500ml",
+    "descripcion": "Ideal para el cuidado del pelaje de tu mascota.",
+    "precio": 1700,
+    "stock": 48,
+    "imagen": "https://acdn-us.mitiendanube.com/stores/887/684/products/han-shampoo-neutro1-cee37daeb4c87d0f8d15942446843474-240-0.jpg"
+  },
+  {
+    "id": 13,
+    "nombre": "Correa Extensible 5m",
+    "descripcion": "Correa de paseo con freno automático, ideal para control y libertad.",
+    "precio": 3200,
+    "stock": 18,
+    "imagen": "https://acdn-us.mitiendanube.com/stores/680/557/products/flexi-xtreme-s-54a3a38d0094ef801b169999148944311-95fb1a8e669a9ebad616999915824382-1024-1024.jpg"
+  },
+  {
+    "id": 14,
+    "nombre": "Bolso Transportador Mediano",
+    "descripcion": "Perfecto para transportar a tu gato o perro pequeño.",
+    "precio": 70400,
+    "stock": 7,
+    "imagen": "https://www.petmarket.com.ar/wp-content/uploads/2023/10/Bolso-de-Transporte-cTiras-Mediano-42x24x24-4-1.jpg"
+  },
+  {
+    "id": 15,
+    "nombre": "Snack Dental para Perros x5",
+    "descripcion": "Ayuda a mantener los dientes limpios y aliento fresco.",
+    "precio": 1100,
+    "stock": 22,
+    "imagen": "https://www.purina.com.ar/sites/default/files/2022-10/dentalife-perro-grande.png"
+  }
+
+]

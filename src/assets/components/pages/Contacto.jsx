@@ -3,6 +3,7 @@ import "../estaticos/Estilos.css";
 
 function Contacto() {
   return (
+    <>
     <div className="contacto-container">
       <div className="contacto-box">
         <h2>¡Hablemos! 🐶🐱</h2>
@@ -12,15 +13,16 @@ function Contacto() {
           <input type="text" id="nombre" name="nombre" placeholder="Tu nombre" required />
 
           <label htmlFor="email">Email</label>
-          <input type="email" id="email" name="email" placeholder="patitas@gmail.com" required />
+          <input type="email" id="email" name="email" placeholder="tumail@gmail.com" required />
 
           <label htmlFor="mensaje">Mensaje</label>
-          <textarea id="mensaje" name="mensaje" rows="4" placeholder="Escribí tu mensaje aquí..." required></textarea>
+          <textarea id="mensaje" name="mensaje" rows="4" placeholder="Dejanos tu mensaje y te contestaremos a la brevedad" required></textarea>
 
           <button type="submit">Enviar mensaje</button>
         </form>
       </div>
     </div>
+    </>
   );
 }
 

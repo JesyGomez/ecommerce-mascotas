@@ -1,74 +1,38 @@
 import React, { useState } from "react";
 import "../estaticos/Estilos.css";
+import ProductList from "../estaticos/ProductList";
 
-function Tienda() {
+// Recibe onAddToCart como prop
+function Tienda({ cart, productos, cargando, error, onAddToCart }) {
   const [categoriaSeleccionada, setCategoriaSeleccionada] = useState(null);
 
-  const mostrarCategoria = (categoria) => {
-    setCategoriaSeleccionada(categoria);
-  };
-
-  const renderContenido = () => {
-    switch (categoriaSeleccionada) {
-      case "alimentacion":
-        return <p>Estos son nuestros productos de alimentación para mascotas.</p>;
-      case "juguetes":
-        return <p>Descubrí nuestros juguetes para perros y gatos.</p>;
-      case "higiene":
-        return <p>Productos de higiene y cuidado para tus mascotas.</p>;
-      case "transporte":
-        return <p>Transportadoras, mochilas y más para viajar con tu mascota.</p>;
-      default:
-        return <p>Elegí una categoría para ver los productos.</p>;
-    }
-  };
+  const productosFiltrados = categoriaSeleccionada
+    ? productos.filter(
+        (producto) => producto.categoria === categoriaSeleccionada
+      )
+    : productos;
 
   return (
     <div className="tienda-container">
-      <h1 className="tienda-titulo">Nuestra Tienda</h1>
-      <p className="tienda-intro">Explorá nuestras categorías de productos para mascotas</p>
-
-      <div className="categorias-grid">
-        <div className="categoria-card">
-          <img src="/img/alimento.png" alt="Alimentación" />           
-          <h2>Alimentación</h2>
-          <p>Comida premium para perros y gatos.</p>
-          <button className="btn" onClick={() => mostrarCategoria("alimentacion")}>
-            Ver productos
-          </button>
-        </div>
-
-        <div className="categoria-card">
-          <img src="/img/juguete.png" alt="Juguetes" />
-          <h2>Juguetes</h2>
-          <p>Juguetes divertidos para mantener a tu mascota activa.</p>
-          <button className="btn" onClick={() => mostrarCategoria("juguetes")}>
-            Ver productos
-          </button>
-        </div>
-
-        <div className="categoria-card">
-          <img src="/img/higiene.png" alt="Higiene y cuidado" />
-          <h2>Higiene y Cuidado</h2>
-          <p>Productos para el bienestar de tus mascotas.</p>
-          <button className="btn" onClick={() => mostrarCategoria("higiene")}>
-            Ver productos
-          </button>
-        </div>
-
-        <div className="categoria-card">
-          <img src="/img/transporte.png" alt="Transporte" />
-          <h2>Transporte</h2>
-          <p>Mochilas, transportadoras y más.</p>
-          <button className="btn" onClick={() => mostrarCategoria("transporte")}>
-            Ver productos
-          </button>
-        </div>
+      <h1>Nuestra Tienda</h1>
+      <div>
+        <button onClick={() => setCategoriaSeleccionada(null)}>Todos</button>
+        <button onClick={() => setCategoriaSeleccionada("alimento")}>Alimentación</button>
+        <button onClick={() => setCategoriaSeleccionada("juguetes")}>Juguetes</button>
+        <button onClick={() => setCategoriaSeleccionada("higiene")}>Higiene</button>
+        <button onClick={() => setCategoriaSeleccionada("transporte")}>Transporte</button>
       </div>
 
-      <div className="contenido-categoria">
-        <h3>Productos</h3>
-        {renderContenido()}
+      <div className="productos-grid">
+        {cargando ? (
+          <p>Cargando productos...</p>
+        ) : error ? (
+          <p>Ocurrió un error al cargar los productos.</p>
+        ) : productosFiltrados.length === 0 ? (
+          <p>No hay productos en esta categoría.</p>
+        ) : (
+          <ProductList productos={productosFiltrados} onAddToCart={onAddToCart} /> 
+        )}
       </div>
     </div>
   );

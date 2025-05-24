@@ -3,6 +3,7 @@ import "../estaticos/Estilos.css";
 
 function Nosotros() {
   return (
+    <>
     <div className="nosotros-container">
       <div className="nosotros-box">
         <h2>Sobre Patitas 🐾</h2>
@@ -38,6 +39,7 @@ function Nosotros() {
         </div>
       </div>
     </div>
+    </>
   );
 }
 

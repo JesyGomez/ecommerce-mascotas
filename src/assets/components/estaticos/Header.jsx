@@ -1,8 +1,12 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import Cart from "./Cart";
 
 
-function Header() {
+
+const Header = ({ cartItems }) => {
+const [isCartOpen, setCartOpen] = useState(false);
+
   return (
     <nav className="navbar">
       <div className="navbar-logo">
@@ -27,7 +31,8 @@ function Header() {
 
       <div className="navbar-icons">
         <Link to="/login">👤</Link>
-        <Link to="/carrito">🛒</Link>
+        <button onClick={() => setCartOpen(true)}>🛒</button>
+        <Cart cartItems={cartItems} isOpen={isCartOpen} onClose={() => setCartOpen(false)}/>
       </div>
     </nav>
   );

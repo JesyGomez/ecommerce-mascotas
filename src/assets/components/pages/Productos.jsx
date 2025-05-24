@@ -3,18 +3,21 @@ import "../estaticos/Estilos.css";
 import ProductList from '../estaticos/ProductList';
 import Loader from '../Loader';
 
-const Productos = ({ productos, cargando, error }) => {
+// Recibe onAddToCart como prop
+const Productos = ({ cart, productos, cargando, error, onAddToCart }) => {
   return (
-    <div className="productos-container">
-      <h2>Nuestros productos</h2>
-      {cargando ? (
-        <Loader />
-      ) : error ? (
-        <p>Ocurrió un error al cargar los productos.</p>
-      ) : (
-        <ProductList productos={productos} />
-      )}
-    </div>
+    <>
+      <div className="productos-container">
+        <h2>Nuestros productos</h2>
+        {cargando ? (
+          <Loader />
+        ) : error ? (
+          <p>Ocurrió un error al cargar los productos.</p>
+        ) : (
+          <ProductList productos={productos} onAddToCart={onAddToCart} /> 
+        )}
+      </div>
+    </>
   );
 };
 

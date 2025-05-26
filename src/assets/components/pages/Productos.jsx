@@ -3,7 +3,6 @@ import "../estaticos/Estilos.css";
 import ProductList from '../estaticos/ProductList';
 import Loader from '../Loader';
 
-// Recibe onAddToCart como prop
 const Productos = ({ cart, productos, cargando, error, onAddToCart }) => {
   return (
     <>

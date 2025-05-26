@@ -764,8 +764,8 @@
 .cart-drawer {
   position: fixed;
   top: 0;
-  right: -400px;
-  width: 380px; 
+  right: -450px;
+  width: 400px; 
   height: 100%;
   background-color: #F2F2F2; 
   box-shadow: -5px 0 15px rgba(0, 0, 0, 0.2);

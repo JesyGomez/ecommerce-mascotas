@@ -4,7 +4,7 @@ import Cart from "./Cart";
 
 
 
-const Header = ({ cartItems }) => {
+const Header = ({ cartItems, onOpenCart }) => {
 const [isCartOpen, setCartOpen] = useState(false);
 
   return (
@@ -31,7 +31,9 @@ const [isCartOpen, setCartOpen] = useState(false);
 
       <div className="navbar-icons">
         <Link to="/login">👤</Link>
-        <button onClick={() => setCartOpen(true)}>🛒</button>
+        <button onClick={onOpenCart}>
+        🛒
+      </button>
         <Cart cartItems={cartItems} isOpen={isCartOpen} onClose={() => setCartOpen(false)}/>
       </div>
     </nav>

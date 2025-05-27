@@ -85,6 +85,7 @@ const App = () => {
   // Logout
   const handleLogout = () => {
     setIsAuthenticated(false);
+    setCartItems([]); 
     setCurrentUser(null);
     localStorage.removeItem("usuarioActual");
   };

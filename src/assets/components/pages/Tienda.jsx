@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import "../estaticos/Estilos.css";
 import ProductList from "../estaticos/ProductList";
 
-// Recibe onAddToCart como prop
 function Tienda({ cart, productos, cargando, error, onAddToCart, isAuthenticated }) {
   const [categoriaSeleccionada, setCategoriaSeleccionada] = useState(null);
 
@@ -25,7 +24,7 @@ function Tienda({ cart, productos, cargando, error, onAddToCart, isAuthenticated
 
       <div className="productos-grid">
         {cargando ? (
-          <p>Cargando productos...</p>
+          <Loader />
         ) : error ? (
           <p>Ocurrió un error al cargar los productos.</p>
         ) : productosFiltrados.length === 0 ? (

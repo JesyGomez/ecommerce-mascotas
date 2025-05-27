@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-const ProductCard = ({ producto, onAddToCart }) => {
+const ProductCard = ({ producto, onAddToCart, isAuthenticated }) => {
   const [quantity, setQuantity] = useState(1);
   const [showSuccessMessage, setShowSuccessMessage] = useState(false);
 
@@ -13,15 +13,15 @@ const ProductCard = ({ producto, onAddToCart }) => {
   };
 
   const handleAddClick = () => {
-    onAddToCart({ ...producto, quantity: quantity });
-    setQuantity(1); // Reseteo la cantidad a 1 después de agregar
+    if (isAuthenticated) {
+      onAddToCart({ ...producto, quantity: quantity });
+      setQuantity(1); // Reseteo la cantidad
+    }
 
     setShowSuccessMessage(true);
-
-    // Oculto el mensaje 
     setTimeout(() => {
       setShowSuccessMessage(false);
-    }, 2000); 
+    }, 2000);
   };
 
   return (
@@ -29,7 +29,7 @@ const ProductCard = ({ producto, onAddToCart }) => {
       <img src={producto.imagen} alt={producto.nombre} />
       <h3>{producto.nombre}</h3>
       <p>{producto.descripcion}</p>
-      <p className="precio">${producto.precio.toFixed(2)}</p> 
+      <p className="precio">${producto.precio.toFixed(2)}</p>
       <p className="stock">Stock: {producto.stock}</p>
       <div className="cantidadContainer">
         <button className="btn-cantidad" onClick={handleDecrement}>-</button>
@@ -42,7 +42,7 @@ const ProductCard = ({ producto, onAddToCart }) => {
 
       {showSuccessMessage && (
         <span className="product-added-message">
-          ¡Producto Agregado!
+          {isAuthenticated ? "¡Producto Agregado!" : "Debes iniciar sesión para agregar productos al carrito"}
         </span>
       )}
     </div>

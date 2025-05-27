@@ -3,7 +3,7 @@ import "../estaticos/Estilos.css";
 import ProductList from "../estaticos/ProductList";
 
 // Recibe onAddToCart como prop
-function Tienda({ cart, productos, cargando, error, onAddToCart }) {
+function Tienda({ cart, productos, cargando, error, onAddToCart, isAuthenticated }) {
   const [categoriaSeleccionada, setCategoriaSeleccionada] = useState(null);
 
   const productosFiltrados = categoriaSeleccionada
@@ -31,7 +31,7 @@ function Tienda({ cart, productos, cargando, error, onAddToCart }) {
         ) : productosFiltrados.length === 0 ? (
           <p>No hay productos en esta categoría.</p>
         ) : (
-          <ProductList productos={productosFiltrados} onAddToCart={onAddToCart} /> 
+          <ProductList productos={productosFiltrados} onAddToCart={onAddToCart} isAuthenticated={isAuthenticated} /> 
         )}
       </div>
     </div>

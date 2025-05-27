@@ -3,7 +3,7 @@ import "../estaticos/Estilos.css";
 import ProductList from '../estaticos/ProductList';
 import Loader from '../Loader';
 
-const Productos = ({ cart, productos, cargando, error, onAddToCart }) => {
+const Productos = ({ cart, productos, cargando, error, onAddToCart, isAuthenticated }) => {
   return (
     <>
       <div className="productos-container">
@@ -13,7 +13,7 @@ const Productos = ({ cart, productos, cargando, error, onAddToCart }) => {
         ) : error ? (
           <p>Ocurrió un error al cargar los productos.</p>
         ) : (
-          <ProductList productos={productos} onAddToCart={onAddToCart} /> 
+          <ProductList productos={productos} onAddToCart={onAddToCart} isAuthenticated={isAuthenticated} /> 
         )}
       </div>
     </>

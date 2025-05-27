@@ -1106,6 +1106,33 @@
   font-size: 1.2rem;
   color: #444;
 }
+
+/* Usuario */
+.logout-icon {
+  background: none;
+  border: none;
+  font-size: 1.2rem;
+  cursor: pointer;
+  margin-left: 10px;
+}
+.logout-icon:hover {
+  color: red;
+  transform: scale(1.1);
+}
+
+
+.user-saludo {
+  margin-right: 10px;
+  font-weight: bold;
+  color: #444;
+}
+
+.btn-disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+
 /* Footer */
 .footer {
   background-color: #733702; 

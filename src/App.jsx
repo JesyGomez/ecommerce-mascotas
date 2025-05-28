@@ -11,7 +11,7 @@ import Contacto from "./assets/components/pages/Contacto";
 import NotFound from "./assets/components/NotFound";
 import Gallery from './assets/components/Gallery';
 import Cart from './assets/components/estaticos/Cart';
-
+import ProductDetail from './assets/components/estaticos/ProductDetail';
 import Login from './assets/components/auth/Login';
 import RutaProtegida from './assets/components/auth/RutasProtegidas';
 import Registro from './assets/components/auth/Registro';
@@ -189,6 +189,7 @@ const handleAddToCart = (producto) => {
             />
             }
           />
+         <Route path="/producto/:id" element={<ProductDetail />} />
           <Route path="/nosotros" element={<Nosotros />} />
           <Route path="/contacto" element={<Contacto />} />
           <Route path="*" element={<NotFound />} />

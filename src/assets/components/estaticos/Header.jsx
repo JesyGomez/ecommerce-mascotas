@@ -49,9 +49,9 @@ const [menuOpen, setMenuOpen] = useState(false);
           </button>
           </>
         ) : (
-<Link to="/login" title="Iniciar sesión" className="login-button">
-  <FontAwesomeIcon icon={faUser} className="login-icon" />
-</Link>
+      <Link to="/login" title="Iniciar sesión" className="login-button">
+        <FontAwesomeIcon icon={faUser} className="login-icon" />
+      </Link>
         )}
 
       </div>

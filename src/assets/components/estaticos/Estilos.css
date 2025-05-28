@@ -137,7 +137,7 @@
 }
 /* Botón de login en círculo */
 .login-button {
-  background-color: #f8f1ea;  /* Fondo claro, igual que el carrito */
+  background-color: #f8f1ea;  
   border-radius: 50%;
   padding: 0.6rem;
   display: flex;
@@ -889,11 +889,79 @@
   transform: translateY(-2px);
   box-shadow: 0 6px 12px rgba(0,0,0,0.3);
 }
+.btn-ver-detalle{
+  padding: 10px 15px;
+  margin-bottom: 12px;
+  background-color: transparent;
+  color: #BF6576; 
+  border: 1px solid #BF6576; 
+  text-decoration: none;
+  border-radius: 50px;
+  font-weight: bold;
+  transition: all 0.3s ease;
+  font-size: 1.1rem;
+  cursor: pointer;
+}
+
+.btn-ver-detalle:hover {
+  background-color: #BF6576;
+  color: white;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 10px rgba(191, 101, 118, 0.4);
+}
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.modal-content {
+  background: #fff;
+  padding: 2rem;
+  border-radius: 10px;
+  width: 90%;
+  max-width: 500px;
+  position: relative;
+  text-align: center;
+}
+
+.modal-close {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  font-size: 1.5rem;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+.modal-image {
+  max-width: 100%;
+  height: auto;
+  margin-bottom: 1rem;
+}
+.modal-content h2,
+.modal-content p,
+.modal-content strong {
+  color: #333 !important; /* Forzamos un color oscuro legible */
+}
+
+.modal-content p strong {
+  font-weight: bold;
+}
 
 @keyframes fadeIn {
   from {
     opacity: 0;
-    transform: translateY(20px);
+    transform: translateY(10px);
   }
   to {
     opacity: 1;

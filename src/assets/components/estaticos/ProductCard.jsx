@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
-
+import {Link } from 'react-router-dom';
 const ProductCard = ({ producto, onAddToCart, isAuthenticated }) => {
   const [quantity, setQuantity] = useState(1);
   const [showSuccessMessage, setShowSuccessMessage] = useState(false);
+  const [showModal, setShowModal] = useState(false);
 
   const handleDecrement = () => {
     setQuantity((prevQuantity) => Math.max(1, prevQuantity - 1));
@@ -36,9 +37,25 @@ const ProductCard = ({ producto, onAddToCart, isAuthenticated }) => {
         <span className="cantidad">{quantity}</span>
         <button className="btn-cantidad" onClick={handleIncrement}>+</button>
       </div>
+    <button className="btn-ver-detalle" onClick={() => setShowModal(true)}>
+      Ver más
+    </button>
+
       <button className="btn" onClick={handleAddClick}>
         Agregar al carrito 🛒
       </button>
+        {showModal && (
+          <div className="modal-overlay">
+            <div className="modal-content">
+              <button className="modal-close" onClick={() => setShowModal(false)}>×</button>
+              <img src={producto.imagen} alt={producto.nombre} className="modal-image" loading="lazy"/>
+              <h2>{producto.nombre}</h2>
+              <p>{producto.descripcion}</p>
+              <p><strong>Precio:</strong> ${producto.precio.toFixed(2)}</p>
+              <p><strong>Stock:</strong> {producto.stock}</p>
+            </div>
+          </div>
+        )}
 
       {showSuccessMessage && (
         <span className="product-added-message">

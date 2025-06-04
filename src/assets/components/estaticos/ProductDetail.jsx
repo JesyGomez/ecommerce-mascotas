@@ -1,17 +1,19 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { useParams } from 'react-router-dom';
-import data from '../../../../public/data/data.json';
+// import data from '../../../../public/data/data.json';
 
-const ProductDetail = () => {
-  const { id } = useParams(); // Captura el ID de la URL
-  const [producto, setProducto] = useState(null);
+const ProductDetail = (productos) => {
+  const { id } = useParams(); // Capturo el ID de la URL
+  // const [producto, setProducto] = useState(null);
 
-  useEffect(() => {
-    const productoEncontrado = data.find((item) => item.id === parseInt(id));
-    setProducto(productoEncontrado);
-  }, [id]);
+  // useEffect(() => {
+  //   const productoEncontrado = data.find((item) => item.id === parseInt(id));
+  //   setProducto(productoEncontrado);
+  // }, [id]);
+  const producto = productos.find(producto => producto.id == id);
+  
 
-  if (!producto) return <p>Producto no encontrado</p>;
+  // if (!producto) return <p>Producto no encontrado</p>;
 
   return (
     <div className="detalle-producto">

@@ -12,28 +12,21 @@ export const CartProvider = ({ children }) => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [currentUser, setCurrentUser] = useState(null);
 
+  // ✅ Cargar usuario desde localStorage correctamente
   useEffect(() => {
-    const usuarios = JSON.parse(localStorage.getItem("usuarios"));
-
-    if (!usuarios || usuarios.length === 0) {
-      const usuariosIniciales = [
-        { username: "Emiliano1", password: "1234" },
-        { username: "Jesica", password: "1234" },
-      ];
-      localStorage.setItem("usuarios", JSON.stringify(usuariosIniciales));
+    const storedUser = localStorage.getItem("usuarioActual");
+    if (storedUser) {
+      try {
+        const user = JSON.parse(storedUser);
+        setIsAuthenticated(true);
+        setCurrentUser(user);
+      } catch {
+        localStorage.removeItem("usuarioActual");
+      }
     }
   }, []);
 
-  // Verificar si hay usuario logueado al iniciar
-  useEffect(() => {
-    const user = localStorage.getItem("usuarioActual");
-    if (user) {
-      setIsAuthenticated(true);
-      setCurrentUser(user);
-    }
-  }, []);
-
-  // Cargar productos
+  // ✅ Cargar productos desde JSON
   useEffect(() => {
     fetch("/data/data.json")
       .then((res) => {
@@ -51,25 +44,31 @@ export const CartProvider = ({ children }) => {
       });
   }, []);
 
-  // Login
-  const handleLogin = (username, password) => {
-    const usuariosGuardados =
-      JSON.parse(localStorage.getItem("usuarios")) || [];
-    const usuarioValido = usuariosGuardados.find(
-      (u) => u.username === username && u.password === password
-    );
+  // ✅ Login usando users.json
+  const handleLogin = async (username, password) => {
+    try {
+      const res = await fetch("/data/users.json", { cache: "no-store" });
+      if (!res.ok) throw new Error("No se pudo cargar el archivo de usuarios");
 
-    if (usuarioValido) {
-      setIsAuthenticated(true);
-      setCurrentUser(username);
-      localStorage.setItem("usuarioActual", username);
-      return true;
-    } else {
-      return false;
+      const users = await res.json();
+      const userValid = users.find(
+        (u) => u.username === username && u.password === password
+      );
+
+      if (userValid) {
+        setIsAuthenticated(true);
+        setCurrentUser(userValid);
+        localStorage.setItem("usuarioActual", JSON.stringify(userValid));
+        return userValid;
+      } else {
+        return null;
+      }
+    } catch (error) {
+      console.error("Error al iniciar sesión:", error);
+      return null;
     }
   };
 
-  // Logout
   const handleLogout = () => {
     setIsAuthenticated(false);
     setCartItems([]);
@@ -77,22 +76,8 @@ export const CartProvider = ({ children }) => {
     localStorage.removeItem("usuarioActual");
   };
 
-  // Carrito
   const handleOpenCart = () => setIsCartOpen(true);
-  // const handleAddToCart = (producto) => {
-  //   setCartItems((prevItems) => {
-  //     const existingItem = prevItems.find(item => item.id === producto.id);
-  //     if (existingItem) {
-  //       return prevItems.map(item =>
-  //         item.id === producto.id
-  //           ? { ...item, quantity: item.quantity + producto.quantity }
-  //           : item
-  //       );
-  //     } else {
-  //       return [...prevItems, { ...producto }];
-  //     }
-  //   });
-  // };
+
   const handleAddToCart = (producto) => {
     if (!isAuthenticated) {
       alert("Debes iniciar sesión para agregar productos al carrito.");
@@ -123,9 +108,6 @@ export const CartProvider = ({ children }) => {
 
   const handleRemoveItem = (id) => {
     setCartItems((prevItems) => prevItems.filter((item) => item.id !== id));
-    // Estamos accediendo al valor anterior del carrito (prevItems), y usamos .filter()
-    // para crear un nuevo array con todos los ítems
-    // excepto el que tenga el id que queremos eliminar.
   };
 
   const handleCheckout = () => {
@@ -133,29 +115,32 @@ export const CartProvider = ({ children }) => {
     setCartItems([]);
     setIsCartOpen(false);
   };
-return (
-  <CartContext.Provider
-    value={{
-      productos,
-      loading,
-      error,
-      cartItems,
-      isCartOpen,
-      isAuthenticated,
-      currentUser,
-      handleLogin,
-      handleLogout,
-      handleAddToCart,
-      handleRemoveItem,
-      handleUpdateQuantity,
-      handleOpenCart,
-      handleCheckout,
-      setIsCartOpen,
-    }}
-  >
-    {children}
-  </CartContext.Provider>
-//   Pasamos los valores al context / Es como un cajón de herramientas
-
-);
+  try {
+    return (
+      <CartContext.Provider
+        value={{
+          productos,
+          loading,
+          error,
+          cartItems,
+          isCartOpen,
+          isAuthenticated,
+          currentUser,
+          handleLogin,
+          handleLogout,
+          handleAddToCart,
+          handleRemoveItem,
+          handleUpdateQuantity,
+          handleOpenCart,
+          handleCheckout,
+          setIsCartOpen,
+        }}
+      >
+        {children}
+      </CartContext.Provider>
+    );
+  } catch (e) {
+    console.error("Error en CartProvider:", e);
+    return <div>Ocurrió un error en CartProvider: {e.message}</div>;
+  }
 };

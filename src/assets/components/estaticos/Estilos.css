@@ -1340,8 +1340,191 @@
   background-color: #ccc;
   cursor: not-allowed;
 }
+/* === ADMIN MODERNO Y DIVERTIDO === */
+/* Título principal */
+.admin-container h1 {
+  font-size: 2.5rem;
+  margin-bottom: 2rem;
+  color: #3d5a80;
+  text-align: center;
+  position: relative;
+  font-weight: 700;
+  letter-spacing: 1px;
+}
 
+/* Línea decorativa debajo del h1 */
+.admin-container h1::after {
+  content: '';
+  position: absolute;
+  width: 80px;
+  height: 4px;
+  background: linear-gradient(90deg, #3d5a80, #98c1d9);
+  bottom: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  border-radius: 2px;
+}
 
+.admin-container {
+  max-width: 1200px;
+  margin: 3rem auto;
+  padding: 2rem;
+  background-color: #ffffff;
+  border-radius: 20px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+  font-family: 'Poppins', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+.admin-container h2 {
+  font-size: 1.5rem;
+  margin-bottom: 1.5rem;
+  color: #2b2d42;
+  text-align: center;
+}
+/* === FORMULARIO === */
+.admin-form {
+  /* grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); */
+  display: grid;
+  gap: 1rem;
+  margin-bottom: 2.5rem;
+}
+.admin-form input,
+.admin-form textarea {
+  padding: 0.8rem;
+  border: 1px solid #ccc;
+  border-radius: 12px;
+  font-size: 1rem;
+  outline: none;
+  transition: box-shadow 0.3s;
+}
+.admin-form input:focus,
+.admin-form textarea:focus {
+  box-shadow: 0 0 0 2px #98c1d9;
+}
+
+.admin-form button {
+  padding: 0.8rem 1.5rem;
+  background: linear-gradient(45deg, #3d5a80, #98c1d9);
+  color: #fff;
+  border: none;
+  border-radius: 30px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform 0.2s ease, background 0.3s ease;
+}
+.admin-form button:hover {
+  background: linear-gradient(45deg, #2c3d56, #77b1c9);
+  transform: scale(1.05);
+}
+.admin-productos-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 3rem;
+}
+
+/* === TARJETA INDIVIDUAL EN ADMIN === */
+.admin-producto-card {
+  background-color: #f7f9fb;
+  border-radius: 16px;
+  padding: 1rem;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.06);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transition: transform 0.2s ease;
+}
+
+.admin-producto-card:hover {
+  transform: translateY(-5px);
+}
+
+.admin-producto-img {
+  width: 100%;
+  max-width: 180px;
+  height: 120px;
+  object-fit: cover;
+  border-radius: 12px;
+  margin-bottom: 0.8rem;
+}
+
+/* === TEXTOS EN TARJETA === */
+.admin-producto-card h3 {
+  font-size: 1.1rem;
+  color: #2b2d42;
+  margin: 0.3rem 0;
+  text-align: center;
+}
+
+.admin-producto-card p {
+  font-size: 0.9rem;
+  color: #555;
+  margin: 0.2rem 0;
+  text-align: center;
+}
+
+/* === BOTONES DE ACCIÓN === */
+.admin-producto-card button {
+  margin: 0.3rem 0.2rem;
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.admin-producto-card button:first-of-type {
+  background-color: #3d5a80;
+  color: #fff;
+}
+
+.admin-producto-card button:first-of-type:hover {
+  background-color: #2b3d56;
+}
+
+.admin-producto-card .btn-eliminar {
+  background-color: #ef476f;
+  color: #fff;
+}
+
+.admin-producto-card .btn-eliminar:hover {
+  background-color: #c43153;
+}
+.mensaje-exito {
+  background-color: #d4edda;
+  color: #155724;
+  padding: 12px 20px;
+  border-radius: 8px;
+  margin: 10px auto;
+  width: fit-content;
+  font-weight: 500;
+  border: 1px solid #c3e6cb;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  animation: fadeIn 0.3s ease-in-out;
+}
+.mensaje-eliminado {
+  background-color: #f8d7da;
+  color: #721c24;
+}
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* RESPONSIVE EXTRA */
+@media (max-width: 600px) {
+  .admin-productos-grid {
+    grid-template-columns: 1fr;
+  }
+}
 /* Footer */
 .footer {
   background-color: #733702; 

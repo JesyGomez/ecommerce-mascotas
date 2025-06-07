@@ -36,12 +36,14 @@ export const CartProvider = ({ children }) => {
   }, [cartItems, currentUser]);
 
   useEffect(() => {
-    fetch("/data/data.json")
+    fetch("https://683e32f81cd60dca33dab4f0.mockapi.io/productos/productos")
       .then((res) => {
         if (!res.ok) throw new Error("Error al cargar los datos");
         return res.json();
       })
       .then((data) => {
+          console.log("Productos de MockAPI:", data); // 👀 inspeccioná la estructura
+
         setProductos(data);
         setLoading(false);
       })

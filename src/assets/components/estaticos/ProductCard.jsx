@@ -8,6 +8,18 @@ const ProductCard = ({ producto, isAuthenticated }) => {
 
   const { handleAddToCart } = useContext(CartContext);
 
+  // Validación previa: si no hay producto, no renderizamos
+  if (!producto) return null;
+
+  // Desestructuramos con valores por defecto
+  const {
+    nombre = "Producto sin nombre",
+    descripcion = "Sin descripción",
+    precio = 0,
+    stock = 0,
+    imagen,
+  } = producto;
+
   const handleDecrement = () => {
     setQuantity((prevQuantity) => Math.max(1, prevQuantity - 1));
   };
@@ -30,16 +42,27 @@ const ProductCard = ({ producto, isAuthenticated }) => {
 
   return (
     <div className="producto-card">
-      <img src={producto.imagen} alt={producto.nombre} />
-      <h3>{producto.nombre}</h3>
-      <p>{producto.descripcion}</p>
-      <p className="precio">${producto.precio.toFixed(2)}</p>
-      <p className="stock">Stock: {producto.stock}</p>
+      {/* Imagen con fallback si no carga */}
+      <img
+        src={imagen}
+        alt={nombre}
+        onError={(e) => {
+          e.target.onerror = null;
+          e.target.src = "https://via.placeholder.com/150?text=Imagen+no+disponible";
+        }}
+      />
+
+      <h3>{nombre}</h3>
+      <p>{descripcion}</p>
+      <p className="precio">${Number(precio).toFixed(2)}</p>
+      <p className="stock">Stock: {stock}</p>
+
       <div className="cantidadContainer">
         <button className="btn-cantidad" onClick={handleDecrement}>-</button>
         <span className="cantidad">{quantity}</span>
         <button className="btn-cantidad" onClick={handleIncrement}>+</button>
       </div>
+
       <button className="btn-ver-detalle" onClick={() => setShowModal(true)}>
         Ver más
       </button>
@@ -48,15 +71,25 @@ const ProductCard = ({ producto, isAuthenticated }) => {
         Agregar al carrito 🛒
       </button>
 
+      {/* Modal con validación y fallback */}
       {showModal && (
         <div className="modal-overlay">
           <div className="modal-content">
             <button className="modal-close" onClick={() => setShowModal(false)}>×</button>
-            <img src={producto.imagen} alt={producto.nombre} className="modal-image" loading="lazy" />
-            <h2>{producto.nombre}</h2>
-            <p>{producto.descripcion}</p>
-            <p><strong>Precio:</strong> ${producto.precio.toFixed(2)}</p>
-            <p><strong>Stock:</strong> {producto.stock}</p>
+            <img
+              src={imagen}
+              alt={nombre}
+              className="modal-image"
+              loading="lazy"
+              onError={(e) => {
+                e.target.onerror = null;
+                e.target.src = "https://via.placeholder.com/150?text=Sin+imagen";
+              }}
+            />
+            <h2>{nombre}</h2>
+            <p>{descripcion}</p>
+            <p><strong>Precio:</strong> ${Number(precio).toFixed(2)}</p>
+            <p><strong>Stock:</strong> {stock}</p>
           </div>
         </div>
       )}

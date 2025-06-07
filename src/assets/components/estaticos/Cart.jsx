@@ -12,12 +12,21 @@ const Cart = () => {
     handleCheckout,
   } = useContext(CartContext);
 
+  // Validación de estructura
   if (!Array.isArray(cartItems)) {
     console.error("cartItems no es un array:", cartItems);
     return null;
   }
 
-  const total = cartItems.reduce(
+  // Filtro de items válidos para evitar errores
+  const validCartItems = cartItems.filter(
+    (item) =>
+      item &&
+      typeof item.precio === "number" &&
+      typeof item.quantity === "number"
+  );
+
+  const total = validCartItems.reduce(
     (sum, item) => sum + item.precio * item.quantity,
     0
   );
@@ -36,32 +45,45 @@ const Cart = () => {
       </div>
 
       <div className="cart-content">
-        {cartItems.length === 0 ? (
+        {validCartItems.length === 0 ? (
           <p className="cart-empty-message">El carrito está vacío 😔</p>
         ) : (
           <>
             <ul className="cart-items">
-              {cartItems.map((item) => (
+              {validCartItems.map((item) => (
                 <li key={item.id} className="cart-item">
                   <div className="item-info">
-                    <img src={item.imagen} alt={item.nombre} className="item-image" />
+                    {item.imagen && (
+                      <img
+                        src={item.imagen}
+                        alt={item.nombre || "Producto"}
+                        className="item-image"
+                      />
+                    )}
                     <div>
-                      <span className="item-name">{item.nombre}</span>
-                      <span className="item-price">${item.precio.toFixed(2)}</span>
+                      <span className="item-name">{item.nombre || "Sin nombre"}</span>
+                      <span className="item-price">
+                        ${item.precio.toFixed(2)}
+                      </span>
                     </div>
                   </div>
                   <div className="item-actions">
                     <div className="item-quantity-control">
                       <button
                         className="btn-quantity"
-                        onClick={() => handleUpdateQuantity(item.id, item.quantity - 1)}
+                        onClick={() =>
+                          handleUpdateQuantity(item.id, item.quantity - 1)
+                        }
+                        disabled={item.quantity <= 1}
                       >
                         <FaMinus />
                       </button>
                       <span className="quantity-display">{item.quantity}</span>
                       <button
                         className="btn-quantity"
-                        onClick={() => handleUpdateQuantity(item.id, item.quantity + 1)}
+                        onClick={() =>
+                          handleUpdateQuantity(item.id, item.quantity + 1)
+                        }
                       >
                         <FaPlus />
                       </button>

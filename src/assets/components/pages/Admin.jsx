@@ -1,9 +1,7 @@
 import React, { useEffect, useState } from "react";
-import FormularioProductos from "../estaticos/FormularioProductos";
 import "../estaticos/Estilos.css";
-
-const API_URL =
-  "https://683e32f81cd60dca33dab4f0.mockapi.io/productos/productos";
+import Loader from "../Loader";
+const API_URL = "https://683e32f81cd60dca33dab4f0.mockapi.io/productos/productos";
 
 const Admin = () => {
   const [productos, setProductos] = useState([]);
@@ -12,25 +10,38 @@ const Admin = () => {
   const [editando, setEditando] = useState(null);
   const [mensaje, setMensaje] = useState("");
   const [form, setForm] = useState({
-    nombre: "",
-    precio: "",
-    descripcion: "",
-    imagen: "",
+    nombre: '',
+    precio: '',
+    stock: '',
+    imagen: '',
+    descripcion: '',
+    categoria: ''
   });
 
   useEffect(() => {
     fetch(API_URL)
-      .then((res) => res.json())
-      .then((data) => {
+      .then(res => res.json())
+      .then(data => {
         setProductos(data);
         setLoading(false);
       })
-      .catch((error) => {
+      .catch(error => {
         console.error("Error al cargar productos:", error);
         setError(true);
         setLoading(false);
       });
   }, []);
+
+  const resetForm = () => {
+    setForm({
+      nombre: '',
+      precio: '',
+      stock: '',
+      imagen: '',
+      descripcion: '',
+      categoria: ''
+    });
+  };
 
   const handleAgregar = (producto) => {
     fetch(API_URL, {
@@ -38,28 +49,23 @@ const Admin = () => {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(producto),
     })
-      .then((res) => res.json())
-      .then((nuevoProducto) => {
+      .then(res => res.json())
+      .then(nuevoProducto => {
         setProductos([...productos, nuevoProducto]);
-        setForm({ nombre: "", precio: "", descripcion: "", imagen: "" }); 
+        resetForm();
         setMensaje("✅ Producto agregado con éxito");
         setTimeout(() => setMensaje(""), 3000);
       });
   };
 
   const handleEliminar = (id) => {
-    const confirmar = window.confirm(
-      "¿Estás segur@ de que querés eliminar este producto?"
-    );
-    if (!confirmar) return;
-
-    fetch(`${API_URL}/${id}`, {
-      method: "DELETE",
-    }).then(() => {
-      setProductos(productos.filter((p) => p.id !== id));
-      setMensaje("🗑️ Producto eliminado con éxito");
-      setTimeout(() => setMensaje(""), 3000);
-    });
+    if (!window.confirm("¿Estás segur@ de que querés eliminar este producto?")) return;
+    fetch(`${API_URL}/${id}`, { method: "DELETE" })
+      .then(() => {
+        setProductos(productos.filter(p => p.id !== id));
+        setMensaje("🗑️ Producto eliminado con éxito");
+        setTimeout(() => setMensaje(""), 3000);
+      });
   };
 
   const handleEditar = (producto) => {
@@ -73,13 +79,11 @@ const Admin = () => {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(form),
     })
-      .then((res) => res.json())
-      .then((actualizado) => {
-        setProductos(
-          productos.map((p) => (p.id === actualizado.id ? actualizado : p))
-        );
+      .then(res => res.json())
+      .then(actualizado => {
+        setProductos(productos.map(p => (p.id === actualizado.id ? actualizado : p)));
         setEditando(null);
-        setForm({ nombre: "", precio: "", descripcion: "", imagen: "" });
+        resetForm();
         setMensaje("✏️ Producto actualizado con éxito");
         setTimeout(() => setMensaje(""), 3000);
       });
@@ -87,13 +91,13 @@ const Admin = () => {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setForm({
-      ...form,
-      [name]: value,
-    });
+    setForm(prev => ({
+      ...prev,
+      [name]: value
+    }));
   };
 
-  if (loading) return <p className="loading">Cargando productos...</p>;
+  if (loading) return <Loader />;
   if (error) return <p className="error">Error al cargar productos 😓</p>;
 
   return (
@@ -101,15 +105,11 @@ const Admin = () => {
       <h1>Panel de Administración</h1>
 
       {mensaje && (
-        <div
-          className={`mensaje-exito ${
-            mensaje.includes("Producto eliminado") ? "mensaje-eliminado" : ""
-          }`}
-        >
+        <div className={`mensaje-exito ${mensaje.includes("eliminado") ? "mensaje-eliminado" : ""}`}>
           {mensaje}
         </div>
       )}
-      <h2>{editando ? "Editar Producto" : "Agregar Producto"}</h2>
+
       <form
         onSubmit={(e) => {
           e.preventDefault();
@@ -117,6 +117,8 @@ const Admin = () => {
         }}
         className="admin-form"
       >
+        <h2>{editando ? "Editar Producto" : "Agregar Producto"}</h2>
+
         <input
           type="text"
           name="nombre"
@@ -131,6 +133,22 @@ const Admin = () => {
           value={form.precio}
           onChange={handleChange}
           placeholder="Precio"
+          required
+        />
+        <input
+          type="number"
+          name="stock"
+          value={form.stock}
+          onChange={handleChange}
+          placeholder="Stock disponible"
+          required
+        />
+        <input
+          type="text"
+          name="categoria"
+          value={form.categoria}
+          onChange={handleChange}
+          placeholder="Categoría del producto"
           required
         />
         <textarea
@@ -148,6 +166,7 @@ const Admin = () => {
           placeholder="URL de la imagen"
           required
         />
+
         <button type="submit">
           {editando ? "Actualizar Producto" : "Agregar Producto"}
         </button>
@@ -164,9 +183,9 @@ const Admin = () => {
             />
             <h3>{producto.nombre}</h3>
             <p>{producto.descripcion}</p>
-            <p>
-              <strong>${producto.precio}</strong>
-            </p>
+            <p><strong>${producto.precio}</strong></p>
+            <p>Stock: {producto.stock}</p>
+            <p>Categoría: {producto.categoria}</p>
             <button onClick={() => handleEditar(producto)}>Editar</button>
             <button
               onClick={() => handleEliminar(producto.id)}

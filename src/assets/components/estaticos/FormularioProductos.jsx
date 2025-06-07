@@ -25,6 +25,27 @@ function FormularioProductos({ form, onChange, onSubmit, editando, errores }) {
       />
       {errores.precio && <p className="error">{errores.precio}</p>}
 
+      <label>Stock:</label>
+      <input
+        type="number"
+        name="stock"
+        value={form.stock}
+        onChange={onChange}
+        placeholder="Cantidad en stock"
+        min="0"
+      />
+      {errores.stock && <p className="error">{errores.stock}</p>}
+
+      <label>Categoría:</label>
+      <input
+        type="text"
+        name="categoria"
+        value={form.categoria}
+        onChange={onChange}
+        placeholder="Ej. Sillas, Mesas, etc."
+      />
+      {errores.categoria && <p className="error">{errores.categoria}</p>}
+
       <label>Descripción:</label>
       <textarea
         name="descripcion"

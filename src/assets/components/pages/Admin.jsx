@@ -41,10 +41,8 @@ const Admin = () => {
       .then((res) => res.json())
       .then((nuevoProducto) => {
         setProductos([...productos, nuevoProducto]);
-        setForm({ nombre: "", precio: "", descripcion: "", imagen: "" }); // Limpiar campos
+        setForm({ nombre: "", precio: "", descripcion: "", imagen: "" }); 
         setMensaje("✅ Producto agregado con éxito");
-
-        // Ocultar mensaje luego de 3 segundos
         setTimeout(() => setMensaje(""), 3000);
       });
   };
@@ -60,8 +58,6 @@ const Admin = () => {
     }).then(() => {
       setProductos(productos.filter((p) => p.id !== id));
       setMensaje("🗑️ Producto eliminado con éxito");
-
-      // Ocultar el mensaje a los 3 segundos
       setTimeout(() => setMensaje(""), 3000);
     });
   };

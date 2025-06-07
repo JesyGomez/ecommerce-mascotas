@@ -1,32 +1,40 @@
-import { createContext, useState, useEffect } from "react";
+import { createContext, useState, useEffect, useContext } from "react";
+import { AuthContext } from "./AuthContext"; 
 
 export const CartContext = createContext();
 
 export const CartProvider = ({ children }) => {
+  const { currentUser } = useContext(AuthContext);
   const [productos, setProductos] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [cartItems, setCartItems] = useState([]);
   const [isCartOpen, setIsCartOpen] = useState(false);
 
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [currentUser, setCurrentUser] = useState(null);
-
-  // ✅ Cargar usuario desde localStorage correctamente
   useEffect(() => {
-    const storedUser = localStorage.getItem("usuarioActual");
-    if (storedUser) {
-      try {
-        const user = JSON.parse(storedUser);
-        setIsAuthenticated(true);
-        setCurrentUser(user);
-      } catch {
-        localStorage.removeItem("usuarioActual");
+    if (currentUser?.username) {
+      const savedCart = localStorage.getItem(`cart_${currentUser.username}`);
+      if (savedCart) {
+        try {
+          setCartItems(JSON.parse(savedCart));
+        } catch (e) {
+          console.error("Error al leer el carrito guardado:", e);
+          setCartItems([]);
+        }
+      } else {
+        setCartItems([]);
       }
+    } else {
+      setCartItems([]);
     }
-  }, []);
+  }, [currentUser]);
 
-  // ✅ Cargar productos desde JSON
+  useEffect(() => {
+    if (currentUser?.username) {
+      localStorage.setItem(`cart_${currentUser.username}`, JSON.stringify(cartItems));
+    }
+  }, [cartItems, currentUser]);
+
   useEffect(() => {
     fetch("/data/data.json")
       .then((res) => {
@@ -44,56 +52,17 @@ export const CartProvider = ({ children }) => {
       });
   }, []);
 
-  // ✅ Login usando users.json
-  const handleLogin = async (username, password) => {
-    try {
-      const res = await fetch("/data/users.json", { cache: "no-store" });
-      if (!res.ok) throw new Error("No se pudo cargar el archivo de usuarios");
-
-      const users = await res.json();
-      const userValid = users.find(
-        (u) => u.username === username && u.password === password
-      );
-
-      if (userValid) {
-        setIsAuthenticated(true);
-        setCurrentUser(userValid);
-        localStorage.setItem("usuarioActual", JSON.stringify(userValid));
-        return userValid;
-      } else {
-        return null;
-      }
-    } catch (error) {
-      console.error("Error al iniciar sesión:", error);
-      return null;
-    }
-  };
-
-  const handleLogout = () => {
-    setIsAuthenticated(false);
-    setCartItems([]);
-    setCurrentUser(null);
-    localStorage.removeItem("usuarioActual");
-  };
-
-  const handleOpenCart = () => setIsCartOpen(true);
-
   const handleAddToCart = (producto) => {
-    if (!isAuthenticated) {
-      alert("Debes iniciar sesión para agregar productos al carrito.");
-      return;
-    }
-
     setCartItems((prevItems) => {
       const existingItem = prevItems.find((item) => item.id === producto.id);
       if (existingItem) {
         return prevItems.map((item) =>
           item.id === producto.id
-            ? { ...item, quantity: item.quantity + producto.quantity }
+            ? { ...item, quantity: item.quantity + (producto.quantity || 1) }
             : item
         );
       } else {
-        return [...prevItems, { ...producto }];
+        return [...prevItems, { ...producto, quantity: producto.quantity || 1 }];
       }
     });
   };
@@ -115,32 +84,27 @@ export const CartProvider = ({ children }) => {
     setCartItems([]);
     setIsCartOpen(false);
   };
-  try {
-    return (
-      <CartContext.Provider
-        value={{
-          productos,
-          loading,
-          error,
-          cartItems,
-          isCartOpen,
-          isAuthenticated,
-          currentUser,
-          handleLogin,
-          handleLogout,
-          handleAddToCart,
-          handleRemoveItem,
-          handleUpdateQuantity,
-          handleOpenCart,
-          handleCheckout,
-          setIsCartOpen,
-        }}
-      >
-        {children}
-      </CartContext.Provider>
-    );
-  } catch (e) {
-    console.error("Error en CartProvider:", e);
-    return <div>Ocurrió un error en CartProvider: {e.message}</div>;
-  }
+
+  const handleOpenCart = () => setIsCartOpen((prev) => !prev);
+
+  return (
+    <CartContext.Provider
+      value={{
+        productos,
+        loading,
+        error,
+        cartItems,
+        setCartItems,
+        isCartOpen,
+        handleAddToCart,
+        handleRemoveItem,
+        handleUpdateQuantity,
+        handleOpenCart,
+        handleCheckout,
+        setIsCartOpen,
+      }}
+    >
+      {children}
+    </CartContext.Provider>
+  );
 };

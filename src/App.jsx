@@ -17,17 +17,18 @@ import RutaProtegida from "./assets/components/auth/RutasProtegidas";
 import Registro from "./assets/components/auth/Registro";
 import Admin from "./assets/components/pages/Admin";
 import { CartContext } from "./assets/components/context/CartContext";
+import { AuthContext } from "./assets/components/context/AuthContext";
+
 const App = () => {
+  const { isAuthenticated, currentUser, handleLogin, handleLogout } =
+    useContext(AuthContext);
+
   const {
     productos,
     loading,
     error,
     cartItems,
     isCartOpen,
-    isAuthenticated,
-    currentUser,
-    handleLogin,
-    handleLogout,
     handleAddToCart,
     handleRemoveItem,
     handleUpdateQuantity,
@@ -85,14 +86,12 @@ const App = () => {
           <Route
             path="/admin"
             element={
-              <RutaProtegida
-                isAuthenticated={isAuthenticated}
-                requiredRole="admin"
-              >
+              <RutaProtegida requiredRole="admin">
                 <Admin />
               </RutaProtegida>
             }
           />
+
           <Route path="*" element={<NotFound />} />
         </Routes>
       </main>

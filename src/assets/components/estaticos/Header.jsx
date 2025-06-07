@@ -1,6 +1,5 @@
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
-import Cart from "./Cart";
+import React, { useContext, useState } from "react";
+import { NavLink, Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faRightFromBracket,
@@ -8,19 +7,36 @@ import {
   faBars,
   faUser,
 } from "@fortawesome/free-solid-svg-icons";
-const Header = ({
-  cartItems,
-  onOpenCart,
-  onLogout,
-  isAuthenticated,
-  currentUser,
-}) => {
-  const [isCartOpen, setCartOpen] = useState(false);
+
+import { AuthContext } from "../context/AuthContext";
+import { CartContext } from "../context/CartContext";
+
+const Header = () => {
+  const { isAuthenticated, currentUser, handleLogout } =
+    useContext(AuthContext);
+  const {
+    cartItems,
+    setCartItems,
+    // isCartOpen,
+    // setIsCartOpen,
+    handleOpenCart,
+  } = useContext(CartContext);
   const [menuOpen, setMenuOpen] = useState(false);
+
+  const logoutHandler = () => {
+    if (currentUser?.username) {
+      localStorage.setItem(
+        `cart_${currentUser.username}`,
+        JSON.stringify(cartItems)
+      );
+    }
+    handleLogout();
+  };
+
   return (
     <nav className="navbar">
       <div className="navbar-logo">
-        <Link to="/">🐾 Patitas</Link>
+        <NavLink to="/">🐾 Patitas</NavLink>
       </div>
 
       <button className="hamburger" onClick={() => setMenuOpen(!menuOpen)}>
@@ -29,44 +45,76 @@ const Header = ({
 
       <ul className={`navbar-links ${menuOpen ? "active" : ""}`}>
         <li>
-          <Link to="/">Inicio</Link>
+          <NavLink
+            to="/"
+            className={({ isActive }) => (isActive ? "active" : "")}
+          >
+            Inicio
+          </NavLink>
         </li>
         <li className="dropdown">
-          <Link to="/tienda">Tienda ▾</Link>
+          <NavLink
+            to="/tienda"
+            className={({ isActive }) => (isActive ? "active" : "")}
+          >
+            Tienda ▾
+          </NavLink>
           <ul className="dropdown-menu">
             <li>
-              <Link to="/tienda">Juguetes</Link>
+              <NavLink to="/tienda">Juguetes</NavLink>
             </li>
             <li>
-              <Link to="/tienda">Alimentación</Link>
+              <NavLink to="/tienda">Alimentación</NavLink>
             </li>
             <li>
-              <Link to="/tienda">Higiene y Cuidado</Link>
+              <NavLink to="/tienda">Higiene y Cuidado</NavLink>
             </li>
             <li>
-              <Link to="/tienda">Transporte</Link>
+              <NavLink to="/tienda">Transporte</NavLink>
             </li>
           </ul>
         </li>
         <li>
-          <Link to="/nosotros">Nosotros</Link>
+          <NavLink
+            to="/nosotros"
+            className={({ isActive }) => (isActive ? "active" : "")}
+          >
+            Nosotros
+          </NavLink>
         </li>
         <li>
-          <Link to="/contacto">Contacto</Link>
+          <NavLink
+            to="/contacto"
+            className={({ isActive }) => (isActive ? "active" : "")}
+          >
+            Contacto
+          </NavLink>
         </li>
+
+        {/* BOTÓN ADMIN SOLO SI ES ADMIN */}
+        {isAuthenticated && currentUser?.role === "admin" && (
+          <li>
+            <NavLink
+              to="/admin"
+              className={({ isActive }) =>
+                isActive ? "active admin-button" : "admin-button"
+              }
+            >
+              🛠️ Panel de Administración
+            </NavLink>
+          </li>
+        )}
+
         <button
-          onClick={onOpenCart}
+          onClick={handleOpenCart}
           title="Ver carrito"
           className="cart-button"
         >
           <FontAwesomeIcon icon={faShoppingCart} className="cart-icon" />
+          {cartItems.length > 0 && (
+            <span className="cart-count">{cartItems.length}</span>
+          )}
         </button>
-
-        <Cart
-          cartItems={cartItems}
-          isOpen={isCartOpen}
-          onClose={() => setCartOpen(false)}
-        />
       </ul>
 
       <div className="navbar-icons">
@@ -76,7 +124,14 @@ const Header = ({
               👋 ¡Hola, {currentUser?.username || "Usuario"}!
             </span>
             <button
-              onClick={onLogout}
+              onClick={() => {
+                if (currentUser?.username) {
+                  localStorage.removeItem(`cart_${currentUser.username}`);
+                }
+                logoutHandler();
+                setCartItems([]);
+                setMenuOpen(false);
+              }}
               title="Cerrar sesión"
               className="logout-icon"
             >
@@ -84,9 +139,9 @@ const Header = ({
             </button>
           </>
         ) : (
-          <Link to="/login" title="Iniciar sesión" className="login-button">
+          <NavLink to="/login" title="Iniciar sesión" className="login-button">
             <FontAwesomeIcon icon={faUser} className="login-icon" />
-          </Link>
+          </NavLink>
         )}
       </div>
     </nav>

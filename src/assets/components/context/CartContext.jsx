@@ -54,6 +54,7 @@ export const CartProvider = ({ children }) => {
       });
   }, []);
 
+  
   const handleAddToCart = (producto) => {
     setCartItems((prevItems) => {
       const existingItem = prevItems.find((item) => item.id === producto.id);

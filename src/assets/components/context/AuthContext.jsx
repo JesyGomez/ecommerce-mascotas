@@ -1,11 +1,12 @@
 import { createContext, useEffect, useState } from "react";
+import Swal from "sweetalert2";
 
 export const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [currentUser, setCurrentUser] = useState(null);
-
+const [loadingAuth, setLoadingAuth] = useState(true);
   useEffect(() => {
     const storedUser = localStorage.getItem("usuarioActual");
     if (storedUser) {
@@ -17,6 +18,8 @@ export const AuthProvider = ({ children }) => {
         localStorage.removeItem("usuarioActual");
       }
     }
+        setLoadingAuth(false); // Terminé de cargar el estado
+
   }, []);
 
   const handleLogin = async (username, password) => {
@@ -43,10 +46,25 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
+  // handleLogout devuelve promesa que resuelve cuando termina Swal y limpia estado
   const handleLogout = () => {
-    setIsAuthenticated(false);
-    setCurrentUser(null);
-    localStorage.removeItem("usuarioActual");
+    return Swal.fire({
+      icon: 'success',
+      title: '¡Hasta luego!',
+      text: 'Gracias por visitarnos, vuelve pronto 😉',
+      timer: 2000,
+      showConfirmButton: false,
+      timerProgressBar: true,
+      background: '#733702',
+      color: '#fff',
+      didOpen: () => {
+        Swal.showLoading();
+      },
+    }).then(() => {
+      setIsAuthenticated(false);
+      setCurrentUser(null);
+      localStorage.removeItem("usuarioActual");
+    });
   };
 
   return (
@@ -56,6 +74,7 @@ export const AuthProvider = ({ children }) => {
         currentUser,
         handleLogin,
         handleLogout,
+        loadingAuth,  // Expongo el estado
       }}
     >
       {children}

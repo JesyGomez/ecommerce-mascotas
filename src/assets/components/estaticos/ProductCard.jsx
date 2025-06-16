@@ -1,12 +1,10 @@
 import React, { useState, useContext } from "react";
 import { CartContext } from "../context/CartContext";
 
-const ProductCard = ({ producto, isAuthenticated }) => {
+const ProductCard = ({ producto }) => {
   const [quantity, setQuantity] = useState(1);
-  const [showSuccessMessage, setShowSuccessMessage] = useState(false);
   const [showModal, setShowModal] = useState(false);
-
-  const { handleAddToCart } = useContext(CartContext);
+  const { handleAddToCart, handleOpenCart } = useContext(CartContext);
 
   // Validación previa: si no hay producto, no renderizamos
   if (!producto) return null;
@@ -29,15 +27,8 @@ const ProductCard = ({ producto, isAuthenticated }) => {
   };
 
   const handleAddClick = () => {
-    if (isAuthenticated) {
-      handleAddToCart({ ...producto, quantity });
-      setQuantity(1);
-      setShowSuccessMessage(true);
-      setTimeout(() => setShowSuccessMessage(false), 2000);
-    } else {
-      setShowSuccessMessage(true);
-      setTimeout(() => setShowSuccessMessage(false), 2000);
-    }
+    handleAddToCart({ ...producto, quantity });
+    setQuantity(1);
   };
 
   return (
@@ -48,7 +39,8 @@ const ProductCard = ({ producto, isAuthenticated }) => {
         alt={nombre}
         onError={(e) => {
           e.target.onerror = null;
-          e.target.src = "https://via.placeholder.com/150?text=Imagen+no+disponible";
+          e.target.src =
+            "https://via.placeholder.com/150?text=Imagen+no+disponible";
         }}
       />
 
@@ -58,24 +50,43 @@ const ProductCard = ({ producto, isAuthenticated }) => {
       <p className="stock">Stock: {stock}</p>
 
       <div className="cantidadContainer">
-        <button className="btn-cantidad" onClick={handleDecrement}>-</button>
+        <button className="btn-cantidad" onClick={handleDecrement}>
+          -
+        </button>
         <span className="cantidad">{quantity}</span>
-        <button className="btn-cantidad" onClick={handleIncrement}>+</button>
+        <button className="btn-cantidad" onClick={handleIncrement}>
+          +
+        </button>
       </div>
-
       <button className="btn-ver-detalle" onClick={() => setShowModal(true)}>
         Ver más
       </button>
 
-      <button className="btn" onClick={handleAddClick}>
-        Agregar al carrito 🛒
-      </button>
+      <div className="producto-botones-wrapper">
+        <div className="botones-container">
+          <button className="btn" onClick={handleAddClick}>
+            Agregar al carrito
+          </button>
+        </div>
+
+        <div className="boton-carrito-container">
+          <button className="btn-open-cart" onClick={handleOpenCart}>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="#733702" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="icon-cart" viewBox="0 0 24 24">
+            <circle cx="9" cy="21" r="1"></circle>
+            <circle cx="20" cy="21" r="1"></circle>
+            <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+          </svg>
+          </button>
+        </div>
+      </div>
 
       {/* Modal con validación y fallback */}
       {showModal && (
         <div className="modal-overlay">
           <div className="modal-content">
-            <button className="modal-close" onClick={() => setShowModal(false)}>×</button>
+            <button className="modal-close" onClick={() => setShowModal(false)}>
+              ×
+            </button>
             <img
               src={imagen}
               alt={nombre}
@@ -83,21 +94,20 @@ const ProductCard = ({ producto, isAuthenticated }) => {
               loading="lazy"
               onError={(e) => {
                 e.target.onerror = null;
-                e.target.src = "https://via.placeholder.com/150?text=Sin+imagen";
+                e.target.src =
+                  "https://via.placeholder.com/150?text=Sin+imagen";
               }}
             />
             <h2>{nombre}</h2>
             <p>{descripcion}</p>
-            <p><strong>Precio:</strong> ${Number(precio).toFixed(2)}</p>
-            <p><strong>Stock:</strong> {stock}</p>
+            <p>
+              <strong>Precio:</strong> ${Number(precio).toFixed(2)}
+            </p>
+            <p>
+              <strong>Stock:</strong> {stock}
+            </p>
           </div>
         </div>
-      )}
-
-      {showSuccessMessage && (
-        <span className="product-added-message">
-          {isAuthenticated ? "¡Producto Agregado!" : "Debes iniciar sesión para agregar productos al carrito"}
-        </span>
       )}
     </div>
   );

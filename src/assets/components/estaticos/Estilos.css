@@ -521,6 +521,39 @@
   background: #f7f7f7;
   border-radius: 10px;
 }
+.tienda-container input[type="text"] {
+  padding: 10px 15px;
+  width: 100%;
+  max-width: 400px;
+  font-size: 16px;
+  border: 2px solid #BF6576;
+  border-radius: 25px;
+  margin: 20px 0;
+  outline: none;
+  transition: border-color 0.3s, box-shadow 0.3s;
+  box-shadow: 0 0 5px rgba(0,0,0,0.05);
+}
+
+.tienda-container input[type="text"]:focus {
+  border-color: #995a65;
+  box-shadow: 0 0 8px #b800b566;
+}
+
+.boton-buscar {
+  padding: 10px 20px;
+  margin-left: 10px;
+  background-color: #b800b566;
+  color: white;
+  border: none;
+  border-radius: 25px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.boton-buscar:hover {
+  background-color: #50014f66;
+}
 
 /* Login */
 .login-container {
@@ -814,6 +847,28 @@
   margin: 0.3rem 0;
   color: #733702;
   flex-grow: 1; /* Permite que la descripción ocupe el espacio disponible */
+}
+.botones-container, .boton-carrito-container {
+  display: inline-flex;  /* inline-flex para que se acomoden en línea si hay espacio */
+  align-items: center;
+  padding: 0.5rem 1rem;
+  border-radius: 12px;
+  margin: 0.5rem 0.5rem 0 0;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.botones-container button, .boton-carrito-container button {
+  margin: 0 0.5rem;
+  cursor: pointer;
+}
+
+/* Contenedor padre para poner estos dos contenedores en fila */
+
+.producto-botones-wrapper {
+  display: flex;
+  justify-content: center;
+  gap: 0.3rem; 
+  margin-top: 1rem;
 }
 
 .precio {
@@ -1177,8 +1232,8 @@
   }
 }
 /* Estilos para el mensaje "¡Producto Agregado!" */
-.product-added-message {
-  display: block; /* Para que ocupe su propia línea */
+/* .product-added-message {
+  display: block; 
   text-align: center;
   margin-top: 10px;
   padding: 5px 10px;
@@ -1187,8 +1242,8 @@
   border-radius: 5px;
   font-size: 0.9em;
   opacity: 1;
-  transition: opacity 0.5s ease-out; /* Animación de desvanecimiento */
-}
+  transition: opacity 0.5s ease-out; 
+} */
 
 .product-added-message.hidden {
   opacity: 0;

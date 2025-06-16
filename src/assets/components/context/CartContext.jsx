@@ -1,6 +1,6 @@
 import { createContext, useState, useEffect, useContext } from "react";
-import { AuthContext } from "./AuthContext"; 
-
+import { AuthContext } from "./AuthContext";
+import Swal from "sweetalert2";
 export const CartContext = createContext();
 
 export const CartProvider = ({ children }) => {
@@ -10,7 +10,7 @@ export const CartProvider = ({ children }) => {
   const [error, setError] = useState(null);
   const [cartItems, setCartItems] = useState([]);
   const [isCartOpen, setIsCartOpen] = useState(false);
-
+  const [busqueda, setBusqueda] = useState("");
   useEffect(() => {
     if (currentUser?.username) {
       const savedCart = localStorage.getItem(`cart_${currentUser.username}`);
@@ -31,7 +31,10 @@ export const CartProvider = ({ children }) => {
 
   useEffect(() => {
     if (currentUser?.username) {
-      localStorage.setItem(`cart_${currentUser.username}`, JSON.stringify(cartItems));
+      localStorage.setItem(
+        `cart_${currentUser.username}`,
+        JSON.stringify(cartItems)
+      );
     }
   }, [cartItems, currentUser]);
 
@@ -42,7 +45,7 @@ export const CartProvider = ({ children }) => {
         return res.json();
       })
       .then((data) => {
-          console.log("Productos de MockAPI:", data); // 👀 inspeccioná la estructura
+        console.log("Productos de MockAPI:", data); // 👀 inspeccioná la estructura
 
         setProductos(data);
         setLoading(false);
@@ -54,18 +57,48 @@ export const CartProvider = ({ children }) => {
       });
   }, []);
 
-  
+  const productosFiltrados = productos.filter((producto) =>
+    producto?.nombre.toLowerCase().includes(busqueda.toLowerCase())
+  );
+
   const handleAddToCart = (producto) => {
+    if (!currentUser) {
+      Swal.fire({
+        icon: "warning",
+        title: "Debes iniciar sesión",
+        text: "Inicia sesión para agregar productos al carrito",
+        confirmButtonText: "OK",
+      });
+      return;
+    }
+
     setCartItems((prevItems) => {
       const existingItem = prevItems.find((item) => item.id === producto.id);
       if (existingItem) {
+        Swal.fire({
+          icon: "success",
+          title: "¡Cantidad actualizada!",
+          showConfirmButton: false,
+          timer: 1200,
+        });
+
         return prevItems.map((item) =>
           item.id === producto.id
             ? { ...item, quantity: item.quantity + (producto.quantity || 1) }
             : item
         );
       } else {
-        return [...prevItems, { ...producto, quantity: producto.quantity || 1 }];
+        Swal.fire({
+          icon: "success",
+          title: "¡Producto agregado!",
+          showConfirmButton: false,
+          timer: 1200,
+        });
+
+        return [
+          ...prevItems,
+          { ...producto, quantity: producto.quantity || 1 },
+        ];
       }
     });
   };
@@ -83,7 +116,13 @@ export const CartProvider = ({ children }) => {
   };
 
   const handleCheckout = () => {
-    alert("¡Gracias por tu compra!");
+    Swal.fire({
+      icon: "success",
+      title: "¡Compra realizada!",
+      text: "Gracias por tu compra. Te esperamos pronto 😊",  
+      showConfirmButton: false,
+      timer: 1500,
+    });
     setCartItems([]);
     setIsCartOpen(false);
   };
@@ -105,6 +144,9 @@ export const CartProvider = ({ children }) => {
         handleOpenCart,
         handleCheckout,
         setIsCartOpen,
+        productosFiltrados,
+        busqueda,
+        setBusqueda,
       }}
     >
       {children}

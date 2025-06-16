@@ -35,6 +35,8 @@ const App = () => {
     handleOpenCart,
     handleCheckout,
     setIsCartOpen,
+    busqueda,
+    setBusqueda,
   } = useContext(CartContext);
 
   return (
@@ -64,6 +66,8 @@ const App = () => {
                   error={error}
                   onAddToCart={handleAddToCart}
                   isAuthenticated={isAuthenticated}
+                  busqueda={busqueda}
+                  setBusqueda={setBusqueda}
                 />
               </RutaProtegida>
             }

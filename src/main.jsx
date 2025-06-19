@@ -6,7 +6,7 @@ import { CartProvider } from "./assets/components/context/CartContext";
 import { AuthProvider } from "./assets/components/context/AuthContext";
 import { AdminProvider } from "./assets/components/context/AdminContext";
 import 'sweetalert2/dist/sweetalert2.min.css';
-
+import 'bootstrap/dist/css/bootstrap.min.css'; 
 ReactDOM.createRoot(document.getElementById("root")).render(
   // AuthProvider debe envolver todo porque otros contextos dependen de la autenticación
 

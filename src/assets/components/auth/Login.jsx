@@ -64,6 +64,7 @@ const Login = () => {
         <p className="login-footer">
           ¿No tenés cuenta? <Link to="/registro">Registrate</Link>
         </p>
+        <button onClick={() => navigate("/")}>Volver al Inicio</button>
       </div>
     </div>
   );

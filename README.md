@@ -1,57 +1,86 @@
-# 🐶 Tienda para Mascotas - Proyecto ReactJs
+# 🐾 Tienda de Mascotas - Proyecto ReactJs
 
-Este proyecto es una tienda virtual de productos para mascotas, desarrollado con **React**, como parte del curso de **ReactJS para TalentoTech**, dictado por **Emiliano Del Arco**.
+Este proyecto es una tienda virtual de productos para mascotas, desarrollado con **ReactJS + Vite**, como parte del curso de **ReactJS para TalentoTech**, dictado por **Emiliano Del Arco**.
 
-La tienda permite visualizar productos para mascotas con sus imágenes, nombres y precios. El diseño es moderno, amigable y adaptable a distintos dispositivos.
+Ofrece una experiencia completa de e-commerce: desde la visualización de productos, autenticación de usuarios, carrito de compras persistente, hasta un panel de administración exclusivo para admins.
 
 ---
 
 ## 🚀 Tecnologías utilizadas
 
-- ⚛️ React
+- ⚛️ React 18
 - ⚡ Vite
-- 💅 CSS personalizado
+- 🧠 React Router
+- 🎯 React Context
+- 🧼 CSS personalizado
+- 🔐 Autenticación simulada con localStorage
+- 💾 MockAPI (para simular un backend REST)
+- 🔔 React Toastify (notificaciones)
+- 🧁 SweetAlert2 (alertas elegantes)
+- 🛍️ FontAwesome (íconos)
+- 🧪 Helmet Async (SEO por página)
+
 ---
 
-## 📦 Estructura del proyecto
+## 📁 Estructura del proyecto
+
+```
 
 src/
-│
-├── assets/ # Imágenes y recursos estáticos
-├── components/ # Componentes reutilizables (Footer, NavBar, etc.)
-├── data/ # Archivos JSON 
-├── pages/ # Páginas principales de la app
-├── App.jsx # Componente principal
-├── main.jsx # Punto de entrada
+├── assets/             # Recursos estáticos e imágenes
+├── components/         # Componentes reutilizables (Navbar, Footer, etc.)
+├── context/            # Contextos globales (auth, cart, admin)
+├── estaticos/          # Estilos CSS
+├── pages/              # Páginas principales (Home, Tienda, Contacto, Admin, etc.)
+├── App.jsx             # Rutas y layout general
+├── main.jsx            # Punto de entrada
 
-
----
-
-## 📋 Funcionalidades actuales
-
-- ✅ Visualización de productos con imagen, nombre y precio
-- ✅ Componentes reutilizables
-- ✅ Maquetado responsive
-- ✅ Datos simulados desde un archivo JSON
-- ✅ Estructura modular para escalar el proyecto fácilmente
+````
 
 ---
 
-## 🔮 Próximas mejoras
+## 📋 Funcionalidades implementadas
 
-- 🛒 Carrito de compras con lógica de agregado y eliminación
-- 🔎 Filtros por categoría o rango de precio
-- 👤 Autenticación de usuarios
-- 🧾 Integración con base de datos y backend (posiblemente con Firebase + MongoDB)
-- 🌐 Deploy a producción (Vercel, Netlify o similar)
-- 🧪 Tests unitarios con Vitest / React Testing Library
+- ✅ Visualización de productos con imagen, nombre, precio y stock
+- ✅ Carrito de compras con contador, persistencia por usuario, y detalle
+- ✅ Autenticación de usuarios con login/logout simulado
+- ✅ Panel de administración con CRUD de productos
+- ✅ Formulario de productos con validación y feedback visual
+- ✅ Rutas protegidas según el rol del usuario
+- ✅ Toasts animados para notificaciones (agregado, editado, eliminado)
+- ✅ Alertas con confirmación (SweetAlert para eliminar productos)
+- ✅ Diseño responsive adaptable a móvil
+- ✅ Animaciones suaves y subrayado de navegación activa
+- ✅ Meta etiquetas dinámicas por página (SEO)
+
+---
+
+## ✨ Extras visuales
+
+- 🎨 Animaciones con CSS puro (fade-in, subrayado dinámico)
+- 🎈 Dropdown animado en navbar
+- 🌈 Temas suaves y modernos con colores pastel
+- 🐾 Interfaz amigable y accesible
+
+---
+
+## 🔮 Mejoras a futuro
+
+- 🔎 Filtros por categoría, precio o búsqueda
+- 💳 Integración de pasarela de pagos
+- 📦 Integración real con Firebase o MongoDB
+- 👤 Registro de nuevos usuarios
+- 🧪 Tests unitarios y de integración
+- 🌐 Deploy en Netlify o Vercel
 
 ---
 
 ## 🧠 Curso y formación
 
-Este proyecto forma parte del curso **ReactJS para TalentoTech**, una iniciativa de formación intensiva con foco en desarrollo web frontend profesional.  
-📘 **Instructor:** Emiliano Del Arco
+Este proyecto forma parte del curso **ReactJS para TalentoTech**, una iniciativa de formación intensiva para desarrolladores frontend.
+
+📘 **Instructor:** Emiliano Del Arco  
+🎓 **Alumno:** Jesica Gómez
 
 ---
 
@@ -59,8 +88,29 @@ Este proyecto forma parte del curso **ReactJS para TalentoTech**, una iniciativa
 
 1. Clonar este repositorio:
    ```bash
-   git clone 
+   git clone https://github.com/JesyGomez/ecommerce-mascotas.git
+   cd ecommercepatitas
+````
 
-## No olvides!
-- npm install
-- npm run dev
+2. Instalar las dependencias:
+
+   ```bash
+   npm install
+   ```
+
+3. Ejecutar el servidor de desarrollo:
+
+   ```bash
+   npm run dev
+   ```
+
+---
+
+> 💡 No olvides: este proyecto utiliza [MockAPI](https://mockapi.io) como backend simulado. Se puede reemplazar fácilmente por tu propio backend REST o Firebase.
+
+---
+
+¡Gracias por visitar el proyecto! 🐶🐱🐾
+Con 💙 y muchas líneas de código por Jesy.
+
+```

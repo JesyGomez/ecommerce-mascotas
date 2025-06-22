@@ -29,20 +29,43 @@
 .navbar-links li a,
 .navbar-icons a,
 .dropdown span {
+position: relative;
   text-decoration: none;
   color: #733702;
   font-weight: 600;
   font-size: 1.4rem;
-  transition: color 0.3s, transform 0.2s;
+  padding: 5px 0;
+  transition: color 0.3s ease;
 }
-
+/* 
 .navbar-links li a:hover,
 .navbar-icons a:hover,
 .dropdown:hover span {
   color: #BF702A;
   transform: translateY(-3px);
+} */
+/* Línea decorativa para hover y activo */
+.navbar-links li a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  height: 3px;
+  width: 0;
+  background: linear-gradient(90deg, #bf702a, #733702);
+  transition: width 0.4s ease;
+  border-radius: 2px;
 }
 
+/* Hover subraya */
+.navbar-links li a:hover::after {
+  width: 100%;
+}
+
+/* NavLink activo subrayado */
+.navbar-links li a.active::after {
+  width: 100%;
+}
 /* ÍCONOS */
 .navbar-icons {
   display: flex;
@@ -127,6 +150,21 @@
 .dropdown-menu li a:hover {
   background-color: #e0c4a4;
 }
+.navbar {
+  animation: fadeInDown 0.7s ease-in-out;
+}
+
+@keyframes fadeInDown {
+  0% {
+    opacity: 0;
+    transform: translateY(-30px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 /* BOTÓN HAMBURGUESA */
 .hamburger {
   display: none;

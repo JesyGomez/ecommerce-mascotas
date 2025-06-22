@@ -3,6 +3,7 @@ import { AdminContext } from "../context/AdminContext";
 import Loader from "../Loader";
 import "../estaticos/Estilos.css";
 import { Helmet } from "react-helmet-async";
+import { toast } from "react-toastify";
 
 const Admin = () => {
   const {
@@ -21,6 +22,30 @@ const Admin = () => {
 
   if (loading) return <Loader />;
   if (error) return <p className="error">Error al cargar productos 😓</p>;
+
+  const onSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      if (editando) {
+        await handleActualizar();
+        toast.success("Producto actualizado con éxito 🎉");
+      } else {
+        await handleAgregar(form);
+        toast.success("Producto agregado con éxito 🎉");
+      }
+    } catch (error) {
+      toast.error(error.message || "Error al guardar el producto 😓");
+    }
+  };
+
+  const onEliminar = async (id) => {
+    try {
+      await handleEliminar(id);
+      toast.success("Producto eliminado con éxito 🗑️");
+    } catch (error) {
+      toast.error(error.message || "Error al eliminar el producto 😓");
+    }
+  };
 
   return (
     <div className="admin-container">
@@ -44,13 +69,7 @@ const Admin = () => {
         </div>
       )}
 
-      <form
-        onSubmit={(e) => {
-          e.preventDefault();
-          editando ? handleActualizar() : handleAgregar(form);
-        }}
-        className="admin-form"
-      >
+      <form onSubmit={onSubmit} className="admin-form">
         <h2>{editando ? "Editar Producto" : "Agregar Producto"}</h2>
 
         <input
@@ -124,7 +143,7 @@ const Admin = () => {
             <p>Categoría: {producto.categoria}</p>
             <button onClick={() => handleEditar(producto)}>Editar</button>
             <button
-              onClick={() => handleEliminar(producto.id)}
+              onClick={() => onEliminar(producto.id)}
               className="btn-eliminar"
             >
               Eliminar

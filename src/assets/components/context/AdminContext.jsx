@@ -1,4 +1,5 @@
 import React, { createContext, useEffect, useState } from "react";
+import { toast } from "react-toastify";
 
 export const AdminContext = createContext();
 
@@ -9,7 +10,6 @@ export const AdminProvider = ({ children }) => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
   const [editando, setEditando] = useState(null);
-  const [mensaje, setMensaje] = useState("");
   const [form, setForm] = useState({
     nombre: '',
     precio: '',
@@ -30,6 +30,7 @@ export const AdminProvider = ({ children }) => {
         console.error("Error al cargar productos:", error);
         setError(true);
         setLoading(false);
+        toast.error("Error al cargar productos 😓");
       });
   }, []);
 
@@ -44,29 +45,38 @@ export const AdminProvider = ({ children }) => {
     });
   };
 
-  const handleAgregar = (producto) => {
-    fetch(API_URL, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(producto),
-    })
-      .then(res => res.json())
-      .then(nuevoProducto => {
-        setProductos([...productos, nuevoProducto]);
-        resetForm();
-        setMensaje("✅ Producto agregado con éxito");
-        setTimeout(() => setMensaje(""), 3000);
+  const handleAgregar = async (producto) => {
+    try {
+      const res = await fetch(API_URL, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(producto),
       });
+      if (!res.ok) throw new Error("Error al agregar producto");
+
+      const nuevoProducto = await res.json();
+      setProductos([...productos, nuevoProducto]);
+      resetForm();
+      // toast.success("✅ Producto agregado con éxito");
+    } catch (error) {
+      console.error(error);
+      // toast.error("❌ No se pudo agregar el producto");
+    }
   };
 
-  const handleEliminar = (id) => {
+  const handleEliminar = async (id) => {
     if (!window.confirm("¿Estás segur@ de que querés eliminar este producto?")) return;
-    fetch(`${API_URL}/${id}`, { method: "DELETE" })
-      .then(() => {
-        setProductos(productos.filter(p => p.id !== id));
-        setMensaje("🗑️ Producto eliminado con éxito");
-        setTimeout(() => setMensaje(""), 3000);
-      });
+
+    try {
+      const res = await fetch(`${API_URL}/${id}`, { method: "DELETE" });
+      if (!res.ok) throw new Error("Error al eliminar producto");
+
+      setProductos(productos.filter(p => p.id !== id));
+      // toast.success("🗑️ Producto eliminado con éxito");
+    } catch (error) {
+      console.error(error);
+      // toast.error("❌ No se pudo eliminar el producto");
+    }
   };
 
   const handleEditar = (producto) => {
@@ -74,20 +84,24 @@ export const AdminProvider = ({ children }) => {
     setForm(producto);
   };
 
-  const handleActualizar = () => {
-    fetch(`${API_URL}/${editando}`, {
-      method: "PUT",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(form),
-    })
-      .then(res => res.json())
-      .then(actualizado => {
-        setProductos(productos.map(p => (p.id === actualizado.id ? actualizado : p)));
-        setEditando(null);
-        resetForm();
-        setMensaje("✏️ Producto actualizado con éxito");
-        setTimeout(() => setMensaje(""), 3000);
+  const handleActualizar = async () => {
+    try {
+      const res = await fetch(`${API_URL}/${editando}`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(form),
       });
+      if (!res.ok) throw new Error("Error al actualizar producto");
+
+      const actualizado = await res.json();
+      setProductos(productos.map(p => (p.id === actualizado.id ? actualizado : p)));
+      setEditando(null);
+      resetForm();
+      // toast.info("✏️ Producto actualizado con éxito");
+    } catch (error) {
+      console.error(error);
+      // toast.error("❌ No se pudo actualizar el producto");
+    }
   };
 
   const handleChange = (e) => {
@@ -101,7 +115,6 @@ export const AdminProvider = ({ children }) => {
       loading,
       error,
       editando,
-      mensaje,
       form,
       handleAgregar,
       handleEliminar,

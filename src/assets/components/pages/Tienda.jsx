@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import "../estaticos/Estilos.css";
 import ProductList from "../estaticos/ProductList";
+import { Helmet } from "react-helmet-async";
 
 function Tienda({
   productos,
@@ -25,15 +26,22 @@ function Tienda({
 
   return (
     <div className="tienda-container">
-      <h1>Nuestra Tienda</h1>
+      <Helmet>
+        <title>Tienda | Patitas 🐾</title>
+        <meta
+          name="description"
+          content="Explorá nuestra tienda y descubrí alimentos, juguetes y más productos pensados para el bienestar de tus mascotas."
+        />
+      </Helmet>
       <input
         type="text"
+        aria-label="Buscar producto por nombre"
         placeholder="Buscar producto"
         value={busqueda}
         onChange={(e) => setBusqueda(e.target.value)}
       ></input>
       <div>
-        <button onClick={() => setCategoriaSeleccionada(null)}>Todos</button>
+        <button aria-label="Buscar producto por categoría" onClick={() => setCategoriaSeleccionada(null)}>Todos</button>
         <button onClick={() => setCategoriaSeleccionada("alimento")}>
           Alimentación
         </button>

@@ -1,9 +1,18 @@
-import React from 'react';
+import React from "react";
+import { Helmet } from "react-helmet-async";
 
 function FormularioProductos({ form, onChange, onSubmit, editando, errores }) {
   return (
     <form onSubmit={onSubmit} className="admin-form">
-      <h2>{editando ? 'Editar Producto' : 'Agregar Producto'}</h2>
+      <Helmet>
+        <title>
+          {editando ? "Editar Producto" : "Agregar Producto"} | Admin - Patitas
+        </title>
+        <meta
+          name="description"
+          content="Formulario para agregar o editar productos en el e-commerce de Patitas."
+        />
+      </Helmet>
 
       <label>Nombre:</label>
       <input
@@ -12,6 +21,7 @@ function FormularioProductos({ form, onChange, onSubmit, editando, errores }) {
         value={form.nombre}
         onChange={onChange}
         placeholder="Nombre del producto"
+        aria-required="true"
       />
       {errores.nombre && <p className="error">{errores.nombre}</p>}
 
@@ -22,6 +32,7 @@ function FormularioProductos({ form, onChange, onSubmit, editando, errores }) {
         value={form.precio}
         onChange={onChange}
         placeholder="Precio en $"
+        aria-required="true"
       />
       {errores.precio && <p className="error">{errores.precio}</p>}
 
@@ -33,6 +44,7 @@ function FormularioProductos({ form, onChange, onSubmit, editando, errores }) {
         onChange={onChange}
         placeholder="Cantidad en stock"
         min="0"
+        aria-required="true"
       />
       {errores.stock && <p className="error">{errores.stock}</p>}
 
@@ -43,6 +55,7 @@ function FormularioProductos({ form, onChange, onSubmit, editando, errores }) {
         value={form.categoria}
         onChange={onChange}
         placeholder="Ej. Sillas, Mesas, etc."
+        aria-required="true"
       />
       {errores.categoria && <p className="error">{errores.categoria}</p>}
 
@@ -52,6 +65,7 @@ function FormularioProductos({ form, onChange, onSubmit, editando, errores }) {
         value={form.descripcion}
         onChange={onChange}
         placeholder="Describe el producto"
+        aria-required="true"
       />
       {errores.descripcion && <p className="error">{errores.descripcion}</p>}
 
@@ -62,10 +76,13 @@ function FormularioProductos({ form, onChange, onSubmit, editando, errores }) {
         value={form.imagen}
         onChange={onChange}
         placeholder="https://ejemplo.com/imagen.jpg"
+        aria-required="true"
       />
       {errores.imagen && <p className="error">{errores.imagen}</p>}
 
-      <button type="submit">{editando ? 'Actualizar Producto' : 'Agregar Producto'}</button>
+      <button type="submit">
+        {editando ? "Actualizar Producto" : "Agregar Producto"}
+      </button>
     </form>
   );
 }

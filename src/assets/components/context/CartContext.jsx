@@ -45,8 +45,7 @@ export const CartProvider = ({ children }) => {
         return res.json();
       })
       .then((data) => {
-        console.log("Productos de MockAPI:", data); // 👀 inspeccioná la estructura
-
+        
         setProductos(data);
         setLoading(false);
       })

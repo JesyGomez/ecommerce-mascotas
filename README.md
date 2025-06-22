@@ -111,6 +111,6 @@ Este proyecto forma parte del curso **ReactJS para TalentoTech**, una iniciativa
 ---
 
 ¡Gracias por visitar el proyecto! 🐶🐱🐾
-Con 💙 y muchas líneas de código por Jesy.
+Con 💙 y muchas líneas de código.
 
 ```

@@ -45,24 +45,30 @@ export const AdminProvider = ({ children }) => {
     });
   };
 
-  const handleAgregar = async (producto) => {
-    try {
-      const res = await fetch(API_URL, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(producto),
-      });
-      if (!res.ok) throw new Error("Error al agregar producto");
-
-      const nuevoProducto = await res.json();
-      setProductos([...productos, nuevoProducto]);
-      resetForm();
-      // toast.success("✅ Producto agregado con éxito");
-    } catch (error) {
-      console.error(error);
-      // toast.error("❌ No se pudo agregar el producto");
-    }
+const handleAgregar = async (producto) => {
+  // Forzamos tipos numéricos
+  const productoFormateado = {
+    ...producto,
+    precio: Number(producto.precio),
+    stock: Number(producto.stock),
   };
+
+  try {
+    const res = await fetch(API_URL, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(productoFormateado),
+    });
+    if (!res.ok) throw new Error("Error al agregar producto");
+
+    const nuevoProducto = await res.json();
+    setProductos([...productos, nuevoProducto]);
+    resetForm();
+  } catch (error) {
+    console.error(error);
+  }
+};
+
 
   const handleEliminar = async (id) => {
     if (!window.confirm("¿Estás segur@ de que querés eliminar este producto?")) return;
@@ -85,24 +91,30 @@ export const AdminProvider = ({ children }) => {
   };
 
   const handleActualizar = async () => {
-    try {
-      const res = await fetch(`${API_URL}/${editando}`, {
-        method: "PUT",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(form),
-      });
-      if (!res.ok) throw new Error("Error al actualizar producto");
-
-      const actualizado = await res.json();
-      setProductos(productos.map(p => (p.id === actualizado.id ? actualizado : p)));
-      setEditando(null);
-      resetForm();
-      // toast.info("✏️ Producto actualizado con éxito");
-    } catch (error) {
-      console.error(error);
-      // toast.error("❌ No se pudo actualizar el producto");
-    }
+  // Forzamos tipos numéricos también acá
+  const productoFormateado = {
+    ...form,
+    precio: Number(form.precio),
+    stock: Number(form.stock),
   };
+
+  try {
+    const res = await fetch(`${API_URL}/${editando}`, {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(productoFormateado),
+    });
+    if (!res.ok) throw new Error("Error al actualizar producto");
+
+    const actualizado = await res.json();
+    setProductos(productos.map(p => (p.id === actualizado.id ? actualizado : p)));
+    setEditando(null);
+    resetForm();
+  } catch (error) {
+    console.error(error);
+  }
+};
+
 
   const handleChange = (e) => {
     const { name, value } = e.target;

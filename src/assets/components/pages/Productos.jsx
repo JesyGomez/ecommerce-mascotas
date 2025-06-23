@@ -1,9 +1,15 @@
-import React from 'react';
+import React from "react";
 import "../estaticos/Estilos.css";
-import ProductList from '../estaticos/ProductList';
-import Loader from '../Loader';
+import ProductList from "../estaticos/ProductList";
+import Loader from "../Loader";
 
-const Productos = ({ cart, productos, cargando, error, onAddToCart, isAuthenticated }) => {
+const Productos = ({
+  productos,
+  cargando,
+  error,
+  onAddToCart,
+  isAuthenticated,
+}) => {
   return (
     <>
       <div className="productos-container">
@@ -13,7 +19,13 @@ const Productos = ({ cart, productos, cargando, error, onAddToCart, isAuthentica
         ) : error ? (
           <p>Ocurrió un error al cargar los productos.</p>
         ) : (
-          <ProductList productos={productos} onAddToCart={onAddToCart} isAuthenticated={isAuthenticated} /> 
+          <div className="productos-grid">
+            <ProductList
+              productos={productos}
+              onAddToCart={onAddToCart}
+              isAuthenticated={isAuthenticated}
+            />
+          </div>
         )}
       </div>
     </>

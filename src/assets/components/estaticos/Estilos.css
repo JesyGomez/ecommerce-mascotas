@@ -37,13 +37,6 @@ position: relative;
   padding: 5px 0;
   transition: color 0.3s ease;
 }
-/* 
-.navbar-links li a:hover,
-.navbar-icons a:hover,
-.dropdown:hover span {
-  color: #BF702A;
-  transform: translateY(-3px);
-} */
 /* Línea decorativa para hover y activo */
 .navbar-links li a::after {
   content: "";
@@ -174,11 +167,11 @@ position: relative;
   color: #733702;
   cursor: pointer;
 }
-/* Botón de login en círculo */
 .login-button {
-  background-color: #f8f1ea;  
+  background-color: #f8f1ea;
   border-radius: 50%;
-  padding: 0.6rem;
+  width: 40px;  
+  height: 40px; 
   display: flex;
   align-items: center;
   justify-content: center;
@@ -186,14 +179,16 @@ position: relative;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
   text-decoration: none;
   margin-right: 20px;
+  cursor: pointer;  /* para que se note clickeable */
 }
 
-/* Ícono de login */
 .login-icon {
-  font-size: 1.5rem;
+  font-size: 20px;  
   color: #733702;
   transition: color 0.3s ease;
+  line-height: 1;   /* evita que el icono desborde verticalmente */
 }
+
 
 /* Hover: fondo más claro e ícono color rojo */
 .login-button:hover {

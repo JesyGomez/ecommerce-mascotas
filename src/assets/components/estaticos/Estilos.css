@@ -788,13 +788,33 @@ position: relative;
   background: linear-gradient(145deg, #ffb6b6, #ffe2dc);
 }
 
-.miembro img {
-  width: 100px;
-  height: 100px;
-  border-radius: 50%;
-  object-fit: cover;
-  margin-bottom: 0.8rem;
+.equipo {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  padding: 2rem 0;
 }
+
+.miembro {
+  text-align: center;
+  background-color: #fffaf5;
+  border-radius: 12px;
+  padding: 1rem;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  width: 200px;
+  transition: transform 0.3s ease;
+}
+
+.miembro:hover {
+  transform: translateY(-5px);
+}
+
+.icono-equipo {
+  font-size: 3rem;
+  color: #ff6f61;
+  margin-bottom: 0.5rem;
+}
+
 
 .miembro h4 {
   margin: 0.5rem 0 0.2rem;

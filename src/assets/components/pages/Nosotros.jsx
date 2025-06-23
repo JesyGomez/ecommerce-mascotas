@@ -20,21 +20,21 @@ function Nosotros() {
           educación y el bienestar animal, por lo que compartimos consejos y
           guías en nuestro blog.
         </p>
-        <div className="equipo">
-          <div className="miembro">
-            <img src="https://via.placeholder.com/100" alt="Fundador" />
-            <h4>Ethan Ariel</h4>
-            <p>Fundador & Veterinario</p>
-          </div>
-          <div className="miembro">
-            <img src="https://via.placeholder.com/100" alt="Marketing" />
-            <h4>Liam Ignacio</h4>
-            <p>Marketing & Comunidad</p>
-          </div>
-          <div className="miembro">
-            <img src="https://via.placeholder.com/100" alt="Soporte" />
-            <h4>Mia Abril</h4>
-            <p>Atención al Cliente</p>
+<div className="equipo">
+  <div className="miembro">
+    <i className="fas fa-user-md icono-equipo"></i>
+    <h4>Ethan Ariel</h4>
+    <p>Fundador & Veterinario</p>
+  </div>
+  <div className="miembro">
+    <i className="fas fa-bullhorn icono-equipo"></i>
+    <h4>Liam Ignacio</h4>
+    <p>Marketing & Comunidad</p>
+  </div>
+  <div className="miembro">
+    <i className="fas fa-headset icono-equipo"></i>
+    <h4>Mia Abril</h4>
+    <p>Atención al Cliente</p>
           </div>
         </div>
       </div>

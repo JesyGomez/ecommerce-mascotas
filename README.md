@@ -80,7 +80,7 @@ src/
 Este proyecto forma parte del curso **ReactJS para TalentoTech**, una iniciativa de formación intensiva para desarrolladores frontend.
 
 📘 **Instructor:** Emiliano Del Arco  
-🎓 **Alumno:** Jesica Gómez
+🎓 **Alumna:** Jesica Gómez
 
 ---
 
